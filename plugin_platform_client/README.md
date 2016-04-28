@@ -1,36 +1,12 @@
-关于拓展content_script的种种限制
-https://segmentfault.com/q/1010000002298535
 
-https://developer.chrome.com/extensions/api_index
 
-https://developer.chrome.com/extensions/extension
 
-http://www.php100.com/manual/jquery/jQuery.getScript.html
-
-"matches":["*://*.taobao.com/*"],
-
-### 1.0.0
-- 第一个版本，完成了主要加载逻辑
-- TODO: 错误处理
-- 在插件配置页读取当前环境
-
-### 1.1.0
-- 修改了预发和线上的接口地址
-
-### 1.1.1
-- 再次修改线上接口地址
-
-### 1.1.2
-- 线上链路测试通过；
-- 现在即使读取配置失败也不用重新加载插件了
-
-### 1.1.3 4/18
-- 增加了对本地SDK配置文件中不存在background字段的检测
 
 ### 1.2.1 4/24
 - 将所有加载逻辑在background内完成，规避了https页面的安全限制
 - 加强错误检测,现在即使配置文件必须字段为空或者文件为空，都会被检测到
 - 扩大了默认白名单，现在在以下域名下会点亮插件
+
 ```
 '*.taobao.com',
 '*.taohua.com',
@@ -87,3 +63,34 @@ http://www.php100.com/manual/jquery/jQuery.getScript.html
 '*.cainiao.com',
 '*.alihealth.cn'
 ```
+
+
+### 1.1.3 4/18
+- 增加了对本地SDK配置文件中不存在background字段的检测
+
+### 1.1.2
+- 线上链路测试通过；
+- 现在即使读取配置失败也不用重新加载插件了
+
+
+### 1.1.1
+- 再次修改线上接口地址
+
+
+### 1.1.0
+- 修改了预发和线上的接口地址
+
+
+### 1.0.0
+- 第一个版本，完成了主要加载逻辑
+- TODO: 错误处理
+- 在插件配置页读取当前环境
+
+关于拓展content_script的种种限制
+https://segmentfault.com/q/1010000002298535
+
+https://developer.chrome.com/extensions/api_index
+
+https://developer.chrome.com/extensions/extension
+
+http://www.php100.com/manual/jquery/jQuery.getScript.html
