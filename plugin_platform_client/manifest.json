@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "plugin-platform",
+	"version": "1.2.1",
+	"background": {
+        "page": "background/background.html",
+        "persistent": false
+  },
+	"permissions": ["tabs"],
+	"page_action": {
+		"default_icon": {
+			"19": "img/youdianlihai.png",
+			"128": "img/youdianlihai.png"
+		},
+		"default_title": "plugin-platform"
+	},
+	"permissions" : ["tabs", "activeTab", "notifications", "<all_urls>" ],
+	"options_page": "options/options.html",
+	"content_scripts":[{
+		"matches":["*://*/*"],
+		"js":[
+			"lib/jquery-2.0.0.min.js",
+			"lib/content_script.js"
+		],
+    "run_at": "document_end",
+    "all_frames": false
+	}],
+	"icons": {
+    "128": "img/youdianlihai.png"
+  },
+	"content_security_policy": "script-src 'self'  https://g.alicdn.com http://127.0.0.1:* http://localhost; object-src 'self'"
+}

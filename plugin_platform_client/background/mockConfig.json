@@ -1,0 +1,17 @@
+{
+  "name": "plugin-platform-config",
+  "version": "1.0.0",
+  "userInfo": {},
+  "background": { "scripts": [
+    "http://127.0.0.1:8000/platform/background/background0.js",
+    "http://127.0.0.1:8000/platform/background/background00.js"
+    ]},
+  "content_scripts": [{
+		"matches":["*://*.taobao.com/*"],
+		"js":["//127.0.0.1:8000/platform/lib/content_script_custom_0.js"]
+	},{
+		"matches":["*://*.taobao.com/*"],
+		"js":["//127.0.0.1:8000/platform/lib/content_script_custom_00.js"]
+	}],
+  "message": ""
+}

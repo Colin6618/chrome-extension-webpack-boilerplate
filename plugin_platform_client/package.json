@@ -1,0 +1,18 @@
+{
+  "name": "plugin-platform",
+  "version": "1.0.0",
+  "description": "plugin-platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "plugin",
+    "platform"
+  ],
+  "author": "yuzhi.hyz",
+  "license": "ISC",
+  "dependencies": {
+    "sweetalert": "~1.1.3"
+  }
+}
