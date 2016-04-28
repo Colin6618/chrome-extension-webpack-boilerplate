@@ -1,0 +1,31 @@
+{
+  "name": "plugin-platform-client",
+  "version": "1.0.0",
+  "description": "plugin-platform-client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch --display-error-details"
+  },
+  "keywords": [
+    "plugin",
+    "platform"
+  ],
+  "author": "yuzhi.hyz",
+  "license": "ISC",
+  "dependencies": {
+    "sweetalert": "~1.1.3"
+  },
+  "devDependencies": {
+    "babel-core": "~6.7.2",
+    "babel-loader": "~6.2.4",
+    "babel-polyfill": "~6.7.4",
+    "babel-preset-es2015": "~6.6.0",
+    "babel-preset-react": "~6.5.0",
+    "babel-preset-stage-3": "~6.5.0",
+    "coffee-loader": "~0.7.2",
+    "coffee-script": "~1.10.0",
+    "json-loader": "~0.5.4",
+    "webpack": "~2.1.0-beta.4"
+  }
+}

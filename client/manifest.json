@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
-	"name": "plugin-platform",
-	"version": "1.2.1",
+	"name": "plugin-platform-client",
+	"version": "1.2.2",
 	"background": {
         "page": "background/background.html",
         "persistent": false
@@ -12,7 +12,7 @@
 			"19": "img/youdianlihai.png",
 			"128": "img/youdianlihai.png"
 		},
-		"default_title": "plugin-platform"
+		"default_title": "plugin-platform-client"
 	},
 	"permissions" : ["tabs", "activeTab", "notifications", "<all_urls>" ],
 	"options_page": "options/options.html",
@@ -26,7 +26,7 @@
     "all_frames": false
 	}],
 	"icons": {
-    "128": "img/youdianlihai.png"
+    "128": "img/plugin_128px.png"
   },
 	"content_security_policy": "script-src 'self'  https://g.alicdn.com http://127.0.0.1:* http://localhost; object-src 'self'"
 }

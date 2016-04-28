@@ -10,9 +10,7 @@
 // get sources url from server
 // import 'babel-polyfill';
 var configLoader = require('./configLoader.js');
-
 // var configLoader_ = require('./printPublicGists.js');
-
 // var mockAssertUrl = configLoader.getPluginAssets();
 
 // var pluginJsonFile = {};
