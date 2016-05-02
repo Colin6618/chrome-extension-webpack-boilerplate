@@ -95,6 +95,20 @@
 	  },
 	  getEnv: function getEnv() {
 	    return localStorage["plugin-platform-setting-domain"] || "online";
+	  },
+	  getP: function getP() {
+	    var jqXHR = $.ajax({
+	      dataType: "json",
+	      url: 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js',
+	      async: false // it must be sync
+	    });
+	    jqXHR.done(function (ret, textStatus, jqXHR) {
+	      debugger;
+	    }).fail(function (jqXHR, textStatus, errorThrown) {
+	      console.log('获取插件配置文件失败');
+	      console.log(jqXHR);
+	      debugger;
+	    });
 	  }
 	};
 
@@ -102,7 +116,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	// 内容脚本不能：
 	// 调用 chrome.* API，除了以下 API：
@@ -116,6 +130,7 @@
 	// get sources url from server
 	// import 'babel-polyfill';
 	var configLoader = __webpack_require__(0);
+	var util = __webpack_require__(3);
 	// var configLoader_ = require('./printPublicGists.js');
 	// var mockAssertUrl = configLoader.getPluginAssets();
 
@@ -222,8 +237,12 @@
 	    //   code: '$.getScript("' + jsSrcUrl + '")',
 	    //   allFrames: true
 	    // });
+	    jsSrcUrl = 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js';
 	    $.ajax({
-	      url: jsSrcUrl
+	      url: jsSrcUrl,
+	      contentType: 'application/javascript; charset=utf-8',
+	      cache: false,
+	      dataType: 'script'
 	    }).done(function (jsContent) {
 	      // response is empty, insertCSS throws error
 	      if (jsContent) {
@@ -242,6 +261,7 @@
 	    if (!contentScripts[k].css) continue;
 	    var cssSrcUrl = contentScripts[k].css[0];
 	    // console.log(cssSrcUrl);
+	    cssSrcUrl = util.format(cssSrcUrl);
 	    $.ajax({
 	      url: cssSrcUrl
 	    }).done(function (cssContent) {
@@ -257,6 +277,21 @@
 	    });
 	  }
 	});
+
+/***/ },
+/* 2 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var format = function format(url) {
+	  if (/http(s)?\:/.test(url)) return url;else return 'http:' + url;
+	};
+
+	module.exports = {
+	  format: format
+	};
 
 /***/ }
 /******/ ]);

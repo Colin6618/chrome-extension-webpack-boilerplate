@@ -10,7 +10,6 @@
 // get sources url from server
 // import 'babel-polyfill';
 var configLoader = require('./configLoader.js');
-var util = require('./util/util.js');
 // var configLoader_ = require('./printPublicGists.js');
 // var mockAssertUrl = configLoader.getPluginAssets();
 
@@ -167,15 +166,12 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     //   code: '$.getScript("' + jsSrcUrl + '")',
     //   allFrames: true
     // });
-    jsSrcUrl = 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js';
     $.ajax({
-      url: jsSrcUrl,
-      contentType: 'application/javascript; charset=utf-8',
-      cache: false,
-      dataType: 'script'
+      url: jsSrcUrl
     }).done(function(jsContent) {
       // response is empty, insertCSS throws error
       if (jsContent) {
+
         chrome.tabs.executeScript({
           code: jsContent,
           allFrames: true
@@ -191,7 +187,6 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     if (!contentScripts[k].css) continue;
     let cssSrcUrl = contentScripts[k].css[0];
     // console.log(cssSrcUrl);
-    cssSrcUrl = util.format(cssSrcUrl);
     $.ajax({
       url: cssSrcUrl
     }).done(function(cssContent) {

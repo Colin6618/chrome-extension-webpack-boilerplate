@@ -1,8 +1,8 @@
 // webpack.config.js
 module.exports = {
-  entry: './background/init.js',
+  entry: './client/background/init.js',
   output: {
-    filename: './background/bundle.js'
+    filename: './client/background/bundle.js'
   },
   module: {
     loaders: [

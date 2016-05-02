@@ -9,8 +9,8 @@
 	"permissions": ["tabs"],
 	"page_action": {
 		"default_icon": {
-			"19": "img/youdianlihai.png",
-			"128": "img/youdianlihai.png"
+			"19": "img/plugin_128px.png",
+			"128": "img/plugin_128px.png"
 		},
 		"default_title": "plugin-platform-client"
 	},
@@ -28,5 +28,5 @@
 	"icons": {
     "128": "img/plugin_128px.png"
   },
-	"content_security_policy": "script-src 'self'  https://g.alicdn.com http://127.0.0.1:* http://localhost; object-src 'self'"
+	"content_security_policy": "script-src 'self' https://g.alicdn.com http://127.0.0.1:* http://localhost ; object-src 'self'"
 }

@@ -47,5 +47,19 @@ module.exports = {
   },
   getEnv: function() {
     return localStorage["plugin-platform-setting-domain"] || "online";
+  },
+  getP: function() {
+    var jqXHR = $.ajax({
+      dataType: "json",
+      url: 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js',
+      async: false // it must be sync
+    });
+    jqXHR.done(function(ret, textStatus, jqXHR) {
+      debugger;
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('获取插件配置文件失败');
+      console.log(jqXHR);
+      debugger;
+    });
   }
 }

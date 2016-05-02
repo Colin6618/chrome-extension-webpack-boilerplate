@@ -8,7 +8,7 @@
 // 使用所属扩展程序页面中定义的变量或函数
 // 使用网页或其他内容脚本中定义的变量或函数
 
-console.log('in content_origin');
+console.log('plugin client running');
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
 	if(request.type=="plugin:error") {
     console.log(request.msg);
