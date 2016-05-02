@@ -15,6 +15,3 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
     console.log(request.context);
 	}
 });
-
-
-// console.log(chrome);

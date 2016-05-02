@@ -22,7 +22,7 @@ module.exports = {
         pluginJsonFile = ret.configs;
       }
     }).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log('获取插件配置文件失败');
+      console.log('getPluginAssetsConifg failed');
       console.log(jqXHR);
     });
     return pluginJsonFile;

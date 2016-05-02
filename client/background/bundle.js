@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 	        pluginJsonFile = ret.configs;
 	      }
 	    }).fail(function (jqXHR, textStatus, errorThrown) {
-	      console.log('获取插件配置文件失败');
+	      console.log('getPluginAssetsConifg failed');
 	      console.log(jqXHR);
 	    });
 	    return pluginJsonFile;
@@ -114,6 +114,20 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var format = function format(url) {
+	  if (/http(s)?\:/.test(url)) return url;else return 'http:' + url;
+	};
+
+	module.exports = {
+	  format: format
+	};
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -130,7 +144,7 @@
 	// get sources url from server
 	// import 'babel-polyfill';
 	var configLoader = __webpack_require__(0);
-	var util = __webpack_require__(3);
+	var util = __webpack_require__(1);
 	// var configLoader_ = require('./printPublicGists.js');
 	// var mockAssertUrl = configLoader.getPluginAssets();
 
@@ -171,16 +185,19 @@
 	'*.sm.cn', '*.tanx.com',
 	//极有家
 	'*.jiyoujia.com', 'gw.alicdn.com', '*.miiee.com', '*.imaijia.com', '*.alidayu.com', '*.cainiao.com', '*.alihealth.cn'];
+	// var currentTabId = 0;
+	// var currentWindowId = 0;
 	//check the url string
 	// if in the white list -> active the page Action
 	function checkForValidUrl(tabId, changeInfo, tab) {
-	  if (tab.url.indexOf("chrome-devtools://") > -1) return;
+	  if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1) return;
 	  var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
 	  for (var i = 0; i < whiteHosts.length; i++) {
 	    // convert a csp exp string to reg exp
 	    var hostRegExp = whiteHosts[i].replace(/\./g, '\\.').replace(/\*/g, '\.\*');
 	    if (new RegExp(hostRegExp).test(hostToChecked)) {
 	      chrome.pageAction.show(tabId);
+	      break;
 	    }
 	  }
 	};
@@ -190,9 +207,12 @@
 	// check the whitelist
 	chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
-	// chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-	//     chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});
-	// });
+	// not using
+	function doInCurrentTab(tabCallback) {
+	  chrome.tabs.query({ currentWindow: true, active: true }, function (tabArray) {
+	    tabArray[0].id;
+	  });
+	}
 
 	// click page action icon event
 	// it runs after the check 🐳
@@ -233,22 +253,20 @@
 	  // programic injection: javascript files
 	  for (var i = 0; i < contentScripts.length; i++) {
 	    var jsSrcUrl = contentScripts[i].js[0];
-	    // chrome.tabs.executeScript({
-	    //   code: '$.getScript("' + jsSrcUrl + '")',
-	    //   allFrames: true
-	    // });
-	    jsSrcUrl = 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js';
-	    $.ajax({
+	    jsSrcUrl = util.format(jsSrcUrl);
+	    // jsSrcUrl = "http://g.alicdn.com/kg/cp-tms/0.0.2/index.js?_=1462167227490"
+	    var jqXHR = $.ajax({
 	      url: jsSrcUrl,
-	      contentType: 'application/javascript; charset=utf-8',
+	      // contentType: 'application/javascript; charset=utf-8',
 	      cache: false,
-	      dataType: 'script'
-	    }).done(function (jsContent) {
+	      dataType: 'text' // it must be text, cannot be script, due to crsd rules in jquery
+	    });
+	    jqXHR.done(function (jsContent, aaa, bbb) {
 	      // response is empty, insertCSS throws error
 	      if (jsContent) {
-	        chrome.tabs.executeScript({
+	        chrome.tabs.executeScript(tab.id, {
 	          code: jsContent,
-	          allFrames: true
+	          allFrames: false
 	        });
 	      }
 	    }).fail(function (info) {
@@ -263,13 +281,15 @@
 	    // console.log(cssSrcUrl);
 	    cssSrcUrl = util.format(cssSrcUrl);
 	    $.ajax({
-	      url: cssSrcUrl
+	      url: cssSrcUrl,
+	      cache: false,
+	      dataType: 'text'
 	    }).done(function (cssContent) {
 	      // response is empty, insertCSS throws error
 	      if (cssContent) {
 	        chrome.tabs.insertCSS({
 	          code: cssContent,
-	          allFrames: true
+	          allFrames: false
 	        });
 	      }
 	    }).fail(function (info) {
@@ -277,21 +297,6 @@
 	    });
 	  }
 	});
-
-/***/ },
-/* 2 */,
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var format = function format(url) {
-	  if (/http(s)?\:/.test(url)) return url;else return 'http:' + url;
-	};
-
-	module.exports = {
-	  format: format
-	};
 
 /***/ }
 /******/ ]);

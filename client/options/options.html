@@ -4,18 +4,30 @@
   <link rel="stylesheet" href="../lib/sweetalert.css">
 </head>
 <style>
+#wrapper {
+  width:300px;
+  margin: 50px auto 0 auto;
+}
+#save_action {
+ padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: cornsilk;
+}
 </style>
 <body>
-<p>当前运行环境:</p>
-<select id="env_select">
- <option value="local">local</option>
- <option value="prepub">prepub</option>
- <option value="online">online</option>
- <option value="custom" hidden>custom</option>
-</select>
-<br>
-<button id="save_action">Save</button>
-<h2 id="status"></h2>
+  <div id="wrapper">
+    <p>当前运行环境:</p>
+    <select id="env_select">
+     <option value="local">local</option>
+     <option value="prepub">prepub</option>
+     <option value="online">online</option>
+    <option value="custom" hidden>custom</option>
+    </select>
+    <br>
+    <button id="save_action">Save</button>
+    <h2 id="status"></h2>
+</div>
 <script src="./options.js"></script>
 <script src="../lib/sweetalert.min.js"></script>
 </body>

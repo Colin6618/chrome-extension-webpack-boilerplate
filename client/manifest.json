@@ -14,7 +14,7 @@
 		},
 		"default_title": "plugin-platform-client"
 	},
-	"permissions" : ["tabs", "activeTab", "notifications", "<all_urls>" ],
+	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>" ],
 	"options_page": "options/options.html",
 	"content_scripts":[{
 		"matches":["*://*/*"],

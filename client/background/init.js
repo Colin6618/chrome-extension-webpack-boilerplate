@@ -101,16 +101,19 @@ var whiteHosts = [
   '*.cainiao.com',
   '*.alihealth.cn'
 ];
+// var currentTabId = 0;
+// var currentWindowId = 0;
 //check the url string
 // if in the white list -> active the page Action
 function checkForValidUrl(tabId, changeInfo, tab) {
-  if (tab.url.indexOf("chrome-devtools://") > -1) return;
+  if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1 ) return;
   var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
   for (var i = 0; i < whiteHosts.length; i++) {
     // convert a csp exp string to reg exp
     var hostRegExp = whiteHosts[i].replace(/\./g, '\\.').replace(/\*/g, '\.\*');
     if (new RegExp(hostRegExp).test(hostToChecked)) {
       chrome.pageAction.show(tabId);
+      break;
     }
   }
 };
@@ -120,9 +123,13 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 // check the whitelist
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
-// chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-//     chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});
-// });
+// not using
+function doInCurrentTab(tabCallback) {
+    chrome.tabs.query(
+        { currentWindow: true, active: true },
+        function (tabArray) { tabArray[0].id }
+    );
+}
 
 // click page action icon event
 // it runs after the check 🐳
@@ -163,22 +170,20 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   // programic injection: javascript files
   for (var i = 0; i < contentScripts.length; i++) {
     let jsSrcUrl = contentScripts[i].js[0];
-    // chrome.tabs.executeScript({
-    //   code: '$.getScript("' + jsSrcUrl + '")',
-    //   allFrames: true
-    // });
-    jsSrcUrl = 'https://g.alicdn.com/kg/cp-rulers/0.0.1/index.js';
-    $.ajax({
+    jsSrcUrl = util.format(jsSrcUrl);
+    // jsSrcUrl = "http://g.alicdn.com/kg/cp-tms/0.0.2/index.js?_=1462167227490"
+    var jqXHR = $.ajax({
       url: jsSrcUrl,
-      contentType: 'application/javascript; charset=utf-8',
+      // contentType: 'application/javascript; charset=utf-8',
       cache: false,
-      dataType: 'script'
-    }).done(function(jsContent) {
+      dataType: 'text' // it must be text, cannot be script, due to crsd rules in jquery
+    });
+    jqXHR.done(function(jsContent, aaa, bbb) {
       // response is empty, insertCSS throws error
       if (jsContent) {
-        chrome.tabs.executeScript({
+        chrome.tabs.executeScript(tab.id, {
           code: jsContent,
-          allFrames: true
+          allFrames: false
         });
       }
     }).fail(function(info) {
@@ -193,13 +198,15 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     // console.log(cssSrcUrl);
     cssSrcUrl = util.format(cssSrcUrl);
     $.ajax({
-      url: cssSrcUrl
+      url: cssSrcUrl,
+      cache: false,
+      dataType: 'text'
     }).done(function(cssContent) {
       // response is empty, insertCSS throws error
       if (cssContent) {
         chrome.tabs.insertCSS({
           code: cssContent,
-          allFrames: true
+          allFrames: false
         });
       }
     }).fail(function(info) {
