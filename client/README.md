@@ -1,7 +1,8 @@
 
 ### 2.0.0 05/02
-- bug fix （ajax failed issues）
+- All bugs fixed （ajax failed issues）
 - 新增：精确指定插件运行于那个tab，防止插件开发者在debug的时候误把脚本插入inspetor界面
+- 现在即使chrome dev 没有生成Build目录也能调试了
 
 ### 1.2.2 4/29
 - 使用新的Logo了
