@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "plugin-platform-client",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"background": {
         "page": "background/background.html",
         "persistent": false
@@ -12,7 +12,8 @@
 			"19": "img/plugin_128px.png",
 			"128": "img/plugin_128px.png"
 		},
-		"default_title": "plugin-platform-client"
+		"default_title": "plugin-platform-client",
+		"default_popup": "popup/popup.html"
 	},
 	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>" ],
 	"options_page": "options/options.html",

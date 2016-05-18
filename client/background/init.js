@@ -11,6 +11,7 @@
 // import 'babel-polyfill';
 var configLoader = require('./configLoader.js');
 var util = require('./util/util.js');
+var whiteHosts = require('./util/whitelist.js');
 // var configLoader_ = require('./printPublicGists.js');
 // var mockAssertUrl = configLoader.getPluginAssets();
 
@@ -45,64 +46,10 @@ function getDomainFromUrl(url) {
     host = match[1];
   return host;
 }
-var whiteHosts = [
-  '*.taobao.com',
-  '*.taohua.com',
-  '*.taobao.net',
-  '*.taobao.org',
-  '*.tw.taobao.com',
-  '*.taobao.ali.com',
-  '*.tmall.com',
-  '*.tmall.hk',
-  '*.juhuasuan.com',
-  '*.etao.com',
-  '*.tao123.com',
-  '*.aliyun.com',
-  '*.hitao.com',
-  '*.alibado.com',
-  '*.youshuyuan.com',
-  '*.yahoo.com.cn',
-  '*.aliloan.com',
-  '*.alibaba-inc.com',
-  '*.alibaba.com',
-  '*.alibaba.com.cn',
-  '*.alibaba.net',
-  '*.xiami.com',
-  '*.1688.com',
-  '*.yunos.com',
-  '*.atatech.org',
-  '*.laiwang.com',
-  '*.aliexpress.com',
-  '*.koubei.com',
-  '*.itao.com',
-  '*.alimama.com',
-  //淘点点
-  '*.tdd.la',
-  '*.aliqin.cn',
-  '*.itao.com',
-  '*.net.cn',
-  '*.aliloan.com',
-  '*.alibado.com',
-  '*.ali.com',
-  //淘宝航旅
-  '*.alitrip.com',
-  '*.dingtalk.com',
-  //阿里云备案
-  '*.gein.cn',
-  //神马搜索
-  '*.sm.cn',
-  '*.tanx.com',
-  //极有家
-  '*.jiyoujia.com',
-  'gw.alicdn.com',
-  '*.miiee.com',
-  '*.imaijia.com',
-  '*.alidayu.com',
-  '*.cainiao.com',
-  '*.alihealth.cn'
-];
+
 // var currentTabId = 0;
 // var currentWindowId = 0;
+
 //check the url string
 // if in the white list -> active the page Action
 function checkForValidUrl(tabId, changeInfo, tab) {
@@ -133,7 +80,9 @@ function doInCurrentTab(tabCallback) {
 
 // click page action icon event
 // it runs after the check 🐳
-chrome.pageAction.onClicked.addListener(function(tab) {
+
+var main = window.main = function(tab) {
+
     // chrome.notifications.create(
     //   'name-for-notification',
     //   {
@@ -167,11 +116,12 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     })
     return;
   }
+
   // programic injection: javascript files
   for (var i = 0; i < contentScripts.length; i++) {
     let jsSrcUrl = contentScripts[i].js[0];
     jsSrcUrl = util.format(jsSrcUrl);
-    // jsSrcUrl = "http://g.alicdn.com/kg/cp-tms/0.0.2/index.js?_=1462167227490"
+    // jsSrcUrl = "http://g.alicdn.com/kg/cp-tms/0.0./index.js?_=1462167227490"
     var jqXHR = $.ajax({
       url: jsSrcUrl,
       // contentType: 'application/javascript; charset=utf-8',
@@ -214,4 +164,6 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     });
 
   }
-});
+}
+
+// chrome.pageAction.onClicked.addListener(main);
