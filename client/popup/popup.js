@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // get background js
   var main = chrome.extension.getBackgroundPage().main;
+  // event bind enginStart
   document.getElementById('enginStart').addEventListener('click', function() {
     chrome.tabs.query({
         currentWindow: true,
@@ -15,6 +17,32 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     );
   });
+
+
+  // event bind viewH5
+  document.getElementById('viewH5page').addEventListener('click', function() {
+    chrome.tabs.query({
+        currentWindow: true,
+        active: true
+      },
+      function(tabObjArray) {
+				if(tabObjArray.length < 1) {
+					alert('getTabIndex faild, please refresh the page and try again ');
+					return;
+				}
+        // tabObjArray[0].id
+        chrome.tabs.sendMessage(tabObjArray[0].id, {
+          type: "plugin:viewH5",
+          msg: "view H5 page in current tab",
+          context: "view H5 page in current tab"
+        })
+      }
+    );
+  });
+
+
+
+
 
   return;
   // var data = chrome.extension.getBackgroundPage().articleData;

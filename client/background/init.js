@@ -32,9 +32,6 @@ var whiteHosts = require('./util/whitelist.js');
 // document.write('<script src="' + getUrl1 + '" ></script>');
 // document.write('<script src="' + getUrl2 + '" ></script>');
 
-
-
-
 // get the url domain
 function getDomainFromUrl(url) {
   var host = "null";
@@ -69,14 +66,6 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 // get ride of most runtime errors, the enviroment is important for the plugins
 // check the whitelist
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
-
-// not using
-function doInCurrentTab(tabCallback) {
-    chrome.tabs.query(
-        { currentWindow: true, active: true },
-        function (tabArray) { tabArray[0].id }
-    );
-}
 
 // click page action icon event
 // it runs after the check 🐳

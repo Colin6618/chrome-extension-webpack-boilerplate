@@ -1,8 +1,15 @@
 // webpack.config.js
+
+var path = require("path");
 module.exports = {
-  entry: './client/background/init.js',
+  entry: {
+    './client/background/bundle': './client/background/init.js',
+    './client/lib/content_script_bundle': './client/lib/content_script.js'
+  },
   output: {
-    filename: './client/background/bundle.js'
+    path: path.join(__dirname, ''),
+    filename: '[name].js',
+    chunkFilename: './build/core/[name].js'
   },
   module: {
     loaders: [
@@ -17,6 +24,15 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      {
+        test: /\.xtpl$/,
+        exclude: /node_modules/,
+        loader: 'xtpl',
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
       }
     ]
   },

@@ -18,7 +18,11 @@
     "babel-preset-stage-3": "~6.5.0",
     "coffee-loader": "~0.7.2",
     "coffee-script": "~1.10.0",
+    "css-loader": "~0.23.1",
     "json-loader": "~0.5.4",
-    "webpack": "~2.1.0-beta.4"
+    "style-loader": "~0.13.1",
+    "webpack": "~2.1.0-beta.4",
+    "xtpl-loader": "~0.1.0",
+    "xtemplate": "^4.5.0"
   }
 }

@@ -55,11 +55,11 @@ module.exports = {
       async: false // it must be sync
     });
     jqXHR.done(function(ret, textStatus, jqXHR) {
-      debugger;
+      // debugger;
     }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('获取插件配置文件失败');
       console.log(jqXHR);
-      debugger;
+      // debugger;
     });
   }
 }

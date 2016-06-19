@@ -37,11 +37,13 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */,
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -103,17 +105,17 @@
 	      async: false // it must be sync
 	    });
 	    jqXHR.done(function (ret, textStatus, jqXHR) {
-	      debugger;
+	      // debugger;
 	    }).fail(function (jqXHR, textStatus, errorThrown) {
 	      console.log('获取插件配置文件失败');
 	      console.log(jqXHR);
-	      debugger;
+	      // debugger;
 	    });
 	  }
 	};
 
 /***/ },
-/* 1 */
+/* 3 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -127,7 +129,7 @@
 	};
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -147,7 +149,9 @@
 	module.exports = whiteHosts;
 
 /***/ },
-/* 3 */
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -163,9 +167,9 @@
 
 	// get sources url from server
 	// import 'babel-polyfill';
-	var configLoader = __webpack_require__(0);
-	var util = __webpack_require__(1);
-	var whiteHosts = __webpack_require__(2);
+	var configLoader = __webpack_require__(2);
+	var util = __webpack_require__(3);
+	var whiteHosts = __webpack_require__(4);
 	// var configLoader_ = require('./printPublicGists.js');
 	// var mockAssertUrl = configLoader.getPluginAssets();
 
@@ -218,13 +222,6 @@
 	// get ride of most runtime errors, the enviroment is important for the plugins
 	// check the whitelist
 	chrome.tabs.onUpdated.addListener(checkForValidUrl);
-
-	// not using
-	function doInCurrentTab(tabCallback) {
-	  chrome.tabs.query({ currentWindow: true, active: true }, function (tabArray) {
-	    tabArray[0].id;
-	  });
-	}
 
 	// click page action icon event
 	// it runs after the check 🐳

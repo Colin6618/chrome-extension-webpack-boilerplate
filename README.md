@@ -14,7 +14,9 @@
 1. 下载邮件中的插件平台管理插件，将其拖进 chrome://extensions/ 中安装（由于集团安全规定，我们不能将其上传到谷歌商店，所以只能手动安装）
 2. 在集团域名内就可以使用了。
 
-
+## doc
+0. manifest doc http://open.chrome.360.cn/extension_dev/pageAction.html
+1. api doc https://developer.chrome.com/extensions/extension#method-getBackgroundPage
 
 
 document.querySelectorAll('div[tms-datakey]')
@@ -50,3 +52,6 @@ udata-spm-module
 webpack
 
 https://github.com/petehunt/webpack-howto
+
+mp
+http://wapp.m.taobao.com/src/mp.html#url=http://h5.m.taobao.com&device=iphone4&env=taobao&scale=one2x

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>viewH5page</title>
+  <style>
+    .haha {
+      color: red;
+    }
+
+    .demo {
+      width: 433px;
+      height: 884px;
+      background: url(http://gtms02.alicdn.com/tps/i2/TB1EcmDGFXXXXXLXVXXK6Ax3pXX-433-884.png) no-repeat 0 0;
+    }
+
+    #J_Frame {
+      margin-left: 29px;
+      margin-top: 183px;
+      width: 375px;
+      height: 592px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="haha">1</div>
+  <div class="demo">
+    <iframe src="https://www.taobao.com/markets/hi/hongxing1_copy" name="J_Frame" class="frame" id="J_Frame" frameborder="0"></iframe>
+  </div>
+</body>
+
+</html>
