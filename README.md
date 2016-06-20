@@ -1,5 +1,6 @@
 > 这是插件平台客户端，Changelog见client文件夹内 Readme
-> 官网： http://plugin.labs.taobao.net/
+
+> 官方主页： http://plugin.labs.taobao.net/
 
 ## 客户端开发步骤
 0. 进入开发目录，npm install
