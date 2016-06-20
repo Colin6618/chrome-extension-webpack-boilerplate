@@ -29,10 +29,6 @@ module.exports = {
         test: /\.xtpl$/,
         exclude: /node_modules/,
         loader: 'xtpl',
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style', 'css']
       }
     ]
   },

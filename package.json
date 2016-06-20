@@ -20,9 +20,11 @@
     "coffee-script": "~1.10.0",
     "css-loader": "~0.23.1",
     "json-loader": "~0.5.4",
+    "less": "~2.7.1",
+    "less-loader": "~2.2.3",
     "style-loader": "~0.13.1",
     "webpack": "~2.1.0-beta.4",
-    "xtpl-loader": "~0.1.0",
-    "xtemplate": "^4.5.0"
+    "xtemplate": "^4.5.0",
+    "xtpl-loader": "~0.1.0"
   }
 }

@@ -22,10 +22,8 @@ var viewH5 = function() {
 	var newDoc = document.open("text/html", "replace");
 	newDoc.write(new Xtemplate(tpl).render({}));
 	newDoc.close();
-	// $('html').empty();
-	//
+
 	// $('html').html(new Xtemplate(tpl).render({}));// jquery bug , body tag lost
-	//
 	// $('body').append('<div class="demo" ><iframe id="J_Frame" frameborder="0" src="https://www.taobao.com/markets/hi/hongxing1_copy"></iframe></div>');
 
 }

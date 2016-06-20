@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
           msg: "view H5 page in current tab",
           context: "view H5 page in current tab"
         })
+        chrome.tabs.insertCSS(tabObjArray[0].id, {
+          file: '/lib/content_css.css',
+          allFrames: false
+        });
       }
     );
   });

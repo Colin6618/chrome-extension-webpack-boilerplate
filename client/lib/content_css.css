@@ -1,0 +1,19 @@
+#J_DemoWrap{
+   width: 478px;
+    height: 800px;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: left;
+    position: relative;
+ }
+.demo {
+  width: 433px;
+  height: 884px;
+  background: url(http://gtms02.alicdn.com/tps/i2/TB1EcmDGFXXXXXLXVXXK6Ax3pXX-433-884.png) no-repeat 0 0;
+}
+#J_Frame {
+  margin-left: 29px;
+  margin-top: 183px;
+  width: 375px;
+  height: 592px;
+}

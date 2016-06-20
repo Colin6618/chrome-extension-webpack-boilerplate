@@ -833,7 +833,7 @@
 	var debuggerCommand = nativeCommands["debugger"];
 
 
-	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n    .haha {\n      color: red;\n    }\n\n    .demo {\n      width: 433px;\n      height: 884px;\n      background: url(http://gtms02.alicdn.com/tps/i2/TB1EcmDGFXXXXXLXVXXK6Ax3pXX-433-884.png) no-repeat 0 0;\n    }\n\n    #J_Frame {\n      margin-left: 29px;\n      margin-top: 183px;\n      width: 375px;\n      height: 592px;\n    }\n  </style>\n</head>\n\n<body>\n  <div class="haha">1</div>\n  <div class="demo">\n    <iframe src="https://www.taobao.com/markets/hi/hongxing1_copy" name="J_Frame" class="frame" id="J_Frame" frameborder="0"></iframe>\n  </div>\n</body>\n\n</html>\n';
+	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n  </style>\n</head>\n<body>\n  <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(1, 1);">\n    <!-- <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back">返回</a>\n            <span id="J_Title" class="frame-title">红星无线</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush">刷新</a>\n        </div> -->\n    <div class="demo">\n      <iframe src="https://www.taobao.com/markets/hi/hongxing1_copy" name="J_Frame" src="about:blank" frameborder="0" class="frame" id="J_Frame"></iframe>\n    </div>\n  </div>\n</body>\n\n</html>\n';
 	return buffer;
 	}
 
@@ -868,10 +868,8 @@
 		var newDoc = document.open("text/html", "replace");
 		newDoc.write(new Xtemplate(tpl).render({}));
 		newDoc.close();
-		// $('html').empty();
-		//
+
 		// $('html').html(new Xtemplate(tpl).render({}));// jquery bug , body tag lost
-		//
 		// $('body').append('<div class="demo" ><iframe id="J_Frame" frameborder="0" src="https://www.taobao.com/markets/hi/hongxing1_copy"></iframe></div>');
 	};
 	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
