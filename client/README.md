@@ -1,3 +1,9 @@
+### 3.0.0 06/20
+- 增加popup,取消了pageaction
+- 增加多模块，打包配置升级引入xtemplate
+- add xtemplate and css file to insert
+- 新增浏览器内预览h5功能
+- Todo: 分辨率切换和二维码
 
 ### 2.0.0 05/02
 - All bugs fixed （ajax failed issues）
