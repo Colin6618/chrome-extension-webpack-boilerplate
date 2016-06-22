@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     );
   });
-
-
   // event bind viewH5
   document.getElementById('viewH5page').addEventListener('click', function() {
     chrome.tabs.query({
@@ -37,17 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
           context: "view H5 page in current tab"
         })
         chrome.tabs.insertCSS(tabObjArray[0].id, {
-          file: '/lib/content_css.css',
+          file: '/lib/content_script_bundle_style.css',
           allFrames: false
         });
       }
     );
   });
-
-
-
-
-
   return;
   // var data = chrome.extension.getBackgroundPage().articleData;
   // if(data && data.error){

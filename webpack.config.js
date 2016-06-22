@@ -1,6 +1,8 @@
 // webpack.config.js
 
 var path = require("path");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
   entry: {
     './client/background/bundle': './client/background/init.js',
@@ -12,16 +14,17 @@ module.exports = {
     chunkFilename: './build/core/[name].js'
   },
   module: {
-    loaders: [
-      { test: /\.coffee$/, loader: 'coffee-loader' },
-      {
+    loaders: [{
+        test: /\.coffee$/,
+        loader: 'coffee-loader'
+      }, {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015', 'react', 'stage-3']
         }
-      },
-      {
+      }, {
         test: /\.json$/,
         loader: 'json-loader'
       },
@@ -29,10 +32,20 @@ module.exports = {
         test: /\.xtpl$/,
         exclude: /node_modules/,
         loader: 'xtpl',
+      },
+      // Optionally extract less files
+      // or any other compile-to-css language
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract("css-loader!less-loader")
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.coffee']
-  }
+    extensions: ['', '.js', '.coffee','.less']
+  },
+  plugins: [
+    new ExtractTextPlugin("[name]_style.css")
+  ]
 };

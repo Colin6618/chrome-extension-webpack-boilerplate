@@ -14,6 +14,7 @@
   "author": "yuzhi.hyz",
   "license": "ISC",
   "dependencies": {
+    "jr-qrcode": "~1.0.2",
     "sweetalert": "~1.1.3"
   }
 }

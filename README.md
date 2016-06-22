@@ -57,5 +57,8 @@ https://github.com/petehunt/webpack-howto
 mp
 http://wapp.m.taobao.com/src/mp.html#url=http://h5.m.taobao.com&device=iphone4&env=taobao&scale=one2x
 
+replace html
+http://stackoverflow.com/questions/1236360/how-do-i-replace-the-entire-html-node-using-jquery
+
 custome user agent.
 http://stackoverflow.com/questions/12845445/load-iframe-content-with-different-user-agent
