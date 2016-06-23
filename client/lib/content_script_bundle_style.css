@@ -1,3 +1,9 @@
+::-webkit-scrollbar {
+  display: none;
+}
+iframe {
+  cursor: url('//img.alicdn.com/tps/i2/T1_PMSFLBaXXcu5FDa-20-20.png'), pointer !important;
+}
 #wrap #J_DemoWrap {
   width: 478px;
   height: 800px;
