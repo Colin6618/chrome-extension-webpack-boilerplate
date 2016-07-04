@@ -15,23 +15,6 @@ var whiteHosts = require('./util/whitelist.js');
 // var configLoader_ = require('./printPublicGists.js');
 // var mockAssertUrl = configLoader.getPluginAssets();
 
-// var pluginJsonFile = {};
-// getPluginAssets.done(function(ret){
-//   pluginJsonFile = ret;
-// }).fail(function(jqXHR, textStatus, errorThrown){
-//   console.log('获取插件配置文件失败')
-// });
-
-// var domain = configLoader.getOptionDomain();
-// for (var i = 0; i < backgroundScripts.length; i++) {
-//   document.write('<script src="' + backgroundScripts[i] + '" ></script>');
-// }
-
-// const getUrl1 = "http://127.0.0.1:8000/platform/background/background0.js";
-// const getUrl2 = "http://127.0.0.1:8000/platform/background/background00.js";
-// document.write('<script src="' + getUrl1 + '" ></script>');
-// document.write('<script src="' + getUrl2 + '" ></script>');
-
 // get the url domain
 function getDomainFromUrl(url) {
   var host = "null";
@@ -51,7 +34,7 @@ function getDomainFromUrl(url) {
 // if in the white list -> active the page Action
 function checkForValidUrl(tabId, changeInfo, tab) {
   if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1 ) return;
-  var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
+  let hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
   for (var i = 0; i < whiteHosts.length; i++) {
     // convert a csp exp string to reg exp
     var hostRegExp = whiteHosts[i].replace(/\./g, '\\.').replace(/\*/g, '\.\*');
@@ -62,10 +45,36 @@ function checkForValidUrl(tabId, changeInfo, tab) {
   }
 };
 
+function isH5Page(activeInfo) {
+  // debugger;
+  let tabId = activeInfo.id;
+  chrome.tabs.get(tabId, function(tab){
+    let hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
+    if(/\.m\.taobao\./.test(hostToChecked)) {
+          // tabObjArray[0].id check
+          // if(tabObjArray[0].id != activeInfo.tabId ) return false;
+
+        setTimeout(function() {
+          chrome.tabs.sendMessage(tabId, {
+            type: "plugin:viewH5",
+            msg: "view H5 page in current tab",
+            context: "view H5 page in current tab"
+          });
+          chrome.tabs.insertCSS(tabId, {
+            file: '/lib/content_script_bundle_style.css',
+            allFrames: false
+          });
+        }, 1000);
+    }
+  });
+}
+
 // watch the tab changed
 // get ride of most runtime errors, the enviroment is important for the plugins
 // check the whitelist
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
+chrome.tabs.onCreated.addListener(isH5Page);
+
 
 // click page action icon event
 // it runs after the check 🐳

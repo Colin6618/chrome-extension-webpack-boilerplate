@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -49,7 +49,7 @@
 	// http://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 	// http://wonko.com/post/html-escaping
 
-	var escapeHtml = __webpack_require__(14);
+	var escapeHtml = __webpack_require__(18);
 
 	var SUBSTITUTE_REG = /\\?\{([^{}]+)\}/g;
 	var win = typeof global !== 'undefined' ? global : window;
@@ -344,7 +344,7 @@
 
 	'use strict';
 
-	var QRCoder = __webpack_require__(11);
+	var QRCoder = __webpack_require__(13);
 
 	function generateQR() {
 	  var qr_coder = new QRCoder($('#qr_container'));
@@ -354,6 +354,7 @@
 	  });
 	}
 
+	// 可以设置成功，但是还没用处，TMS页面通过
 	function redefineTheUA() {
 	  function setUserAgent(window, userAgent) {
 	    if (window.navigator.userAgent != userAgent) {
@@ -371,12 +372,25 @@
 	  }
 	  setUserAgent(document.querySelector('iframe').contentWindow, "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
 
-	  console.log('Light Plugin: 当前UA, ', 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1');
+	  // console.log('Light Plugin: 当前设备UA, ' , 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1')
+	}
+
+	function bindPageEvent() {
+	  $('#J_Fliter .phoneType .item').on('click', function (ev) {
+	    var $this = $(ev.target);
+	    if ($this.hasClass('selected')) return false;
+	    var phoneTypeInPage = $('#J_Fliter .phoneType .selected').attr('data-name');
+	    $('#J_Fliter .phoneType .item').removeClass('selected');
+	    var phoneTypeToChange = $this.attr('data-name');
+	    $this.addClass('selected');
+	    $('#J_DemoWrap').removeClass(phoneTypeInPage).addClass(phoneTypeToChange);
+	  });
 	}
 
 	var main = function main() {
 	  generateQR();
 	  redefineTheUA();
+	  bindPageEvent();
 	};
 
 	module.exports = main;
@@ -388,7 +402,8 @@
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -398,10 +413,10 @@
 	'use strict';
 
 	var util = __webpack_require__(0);
-	var nativeCommands = __webpack_require__(12);
+	var nativeCommands = __webpack_require__(16);
 	var commands = {};
 	var Scope = __webpack_require__(1);
-	var LinkedBuffer = __webpack_require__(13);
+	var LinkedBuffer = __webpack_require__(17);
 
 	// for performance: reduce hidden class
 	function TplWrap(name, runtime, root, scope, buffer, originalName, fn, parent) {
@@ -836,7 +851,7 @@
 	 */
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = function (undefined){
@@ -882,24 +897,21 @@
 	var debuggerCommand = nativeCommands["debugger"];
 
 
-	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n\n  </style>\n</head>\n\n<body>\n  <div id="wrap">\n    <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(1, 1);">\n      <!-- <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back">返回</a>\n            <span id="J_Title" class="frame-title">红星无线</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush">刷新</a>\n        </div> -->\n      <div class="demo">\n        <iframe src="';
-	pos.line = 22;
+	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n    /** {\n      cursor: url(\'//img.alicdn.com/tps/i2/T1_PMSFLBaXXcu5FDa-20-20.png\'), pointer !important;\n    }*/\n    /*@font-face {\n      font-family: \'_Helvetica\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/_H_Helvetica.ttc\') format(\'truetype\');\n    }\n\n    @font-face {\n      font-family: \'_STHeiti-Light\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/STHeiti-Light.ttc\') format(\'truetype\');\n    }*/\n/*\n    html,\n    body {\n      font-family: Helvetica, \'STHeiti Light\', STXihei, _Helvetica, _STHeiti-Light !important;\n    }*/\n  </style>\n</head>\n\n<body>\n  <div id="wrap">\n    <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(.8, .8);">\n      <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back" title="返回">返回</a>\n            <span id="J_Title" class="frame-title">插件平台H5预览</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush" title="刷新">刷新</a>\n        </div>\n      <div class="demo">\n        <iframe src="';
+	pos.line = 38;
 	var id0 = ((t=(affix.currentUrl)) !== undefined ? t : ((t = data.currentUrl) !== undefined ? t  : scope.resolveLooseUp(["currentUrl"])));
 	buffer = buffer.writeEscaped(id0);
-	buffer.data += '" name="J_Frame" src="about:blank" frameborder="0" class="frame" id="J_Frame"></iframe>\n      </div>\n    </div>\n    <div id="J_DemoWrap" class="demo-wrap sumsung" style="transform: scale(1, 1);">\n      <!-- <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back">返回</a>\n            <span id="J_Title" class="frame-title">红星无线</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush">刷新</a>\n        </div> -->\n      <div class="demo">\n        <iframe src="';
-	pos.line = 32;
-	var id1 = ((t=(affix.currentUrl)) !== undefined ? t : ((t = data.currentUrl) !== undefined ? t  : scope.resolveLooseUp(["currentUrl"])));
-	buffer = buffer.writeEscaped(id1);
-	buffer.data += '" name="J_Frame" src="about:blank" frameborder="0" class="frame" id="J_Frame"></iframe>\n      </div>\n    </div>\n\n    <div class="info">\n      <form id="J_Form" class="ipt-wraper" hidden>\n        <input id="J_UrlTxt" placeholder="请输入URL……" class="url-txt" type="text" value="">\n      </form>\n      <div id="J_Fliter" class="fliter" hidden>\n        <dl>\n          <dt>设备：</dt>\n          <dd>\n            <span data-name="iphone4" class="item">iPhone4</span>\n            <span data-name="iphone5" class="item selected">iPhone5</span>\n            <span data-name="iphone6" class="item">iPhone6</span>\n            <span data-name="iphone6plus" class="item">iPhone6 Plus</span>\n            <span data-name="sumsung" class="item">三星S5</span>\n            <span data-name="chuizi" class="item">锤子</span>\n          </dd>\n        </dl>\n        <dl>\n          <dt>环境：</dt>\n          <dd>\n            <span data-name="taobao" class="item selected">手淘</span>\n            <span data-name="browser" class="item">浏览器</span>\n            <!-- <span data-name="tianmao" class="item">天猫</span>\n            <span data-name="alipay" class="item">支付宝</span> -->\n          </dd>\n        </dl>\n      </div>\n      <div id = \'qrwrapper\' hidden>\n        <p>使用客户端扫描二维码：</p>\n        <div class="qrcode" id="qr_container" ></div>\n      </div>\n    </div>\n  </div>\n</body>\n\n</html>\n';
+	buffer.data += '" name="J_Frame" src="about:blank" frameborder="0" class="frame" id="J_Frame"></iframe>\n      </div>\n    </div>\n    <div class="info">\n      <form id="J_Form" class="ipt-wraper" hidden>\n        <input id="J_UrlTxt" placeholder="请输入URL……" class="url-txt" type="text" value="">\n      </form>\n      <div id="J_Fliter" class="fliter">\n        <dl class="phoneType">\n          <dt>设备：</dt>\n          <dd>\n            <span data-name="iphone4" class="item">iPhone4</span>\n            <span data-name="iphone5" class="item ">iPhone5</span>\n            <span data-name="iphone6" class="item selected">iPhone6</span>\n            <span data-name="iphone6plus" class="item">iPhone6 Plus</span>\n            <span data-name="sumsung" class="item">三星S5</span>\n            <span data-name="chuizi" class="item">锤子</span>\n          </dd>\n        </dl>\n        <dl class="webviewRuntime">\n          <dt>环境：</dt>\n          <dd>\n            <span data-name="taobao" class="item selected">手淘</span>\n            <span data-name="browser" class="item">浏览器</span>\n            <!-- <span data-name="tianmao" class="item">天猫</span>\n            <span data-name="alipay" class="item">支付宝</span> -->\n          </dd>\n        </dl>\n      </div>\n      <div id=\'qrwrapper\' hidden>\n        <p>使用客户端扫描二维码：</p>\n        <div class="qrcode" id="qr_container"></div>\n      </div>\n    </div>\n  </div>\n</body>\n\n</html>\n';
 	return buffer;
 	}
 
 /***/ },
-/* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */,
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	// 高能预警：
 	// 内容脚本不能：
@@ -911,18 +923,27 @@
 	// 使用所属扩展程序页面中定义的变量或函数
 	// 使用网页或其他内容脚本中定义的变量或函数
 
-	// require just for loader to compile, the styel injected in popupjs via chrome api
-	__webpack_require__(6);
-	var Xtemplate = __webpack_require__(7);
-	var tpl = __webpack_require__(8);
-	var viewH5Main = __webpack_require__(5);
-
+	// onMessage提前，防止background的sendMessage丢失
+	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
+		if (request.type == "plugin:viewH5") {
+			viewH5();
+		}
+	});
 	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
 		if (request.type == "plugin:error") {
 			console.log(request.msg);
 			console.log(request.context);
 		}
 	});
+
+	// require just for loader to compile, the styel injected in popupjs via chrome api
+	__webpack_require__(6);
+	var Xtemplate = __webpack_require__(8);
+	var tpl = __webpack_require__(9);
+	var viewH5Main = __webpack_require__(5);
+	// var global = {}
+
+	// 启用H5页面预览
 	var viewH5 = function viewH5() {
 		var newDoc = document.open("text/html", "replace");
 		var currentUrl = location.href;
@@ -931,6 +952,7 @@
 		} else {
 			currentUrl += '?wh_ttid=phone';
 		}
+		//重新渲染页面
 		newDoc.write(new Xtemplate(tpl).render({
 			currentUrl: currentUrl
 		}));
@@ -941,14 +963,8 @@
 		// $('body').append('<div class="demo" ><iframe id="J_Frame" frameborder="0" src="https://www.taobao.com/markets/hi/hongxing1_copy"></iframe></div>');
 	};
 
-	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
-		if (request.type == "plugin:viewH5") {
-			viewH5();
-		}
-	});
-
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2528,7 +2544,9 @@
 	module.exports = QRCoder;
 
 /***/ },
-/* 12 */
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2810,7 +2828,7 @@
 	module.exports = commands;
 
 /***/ },
-/* 13 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2970,7 +2988,7 @@
 	 */
 
 /***/ },
-/* 14 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/*!

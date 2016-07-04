@@ -6,7 +6,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: {
     './client/background/bundle': './client/background/init.js',
-    './client/lib/content_script_bundle': './client/lib/content_script.js'
+    './client/lib/content_script_bundle': './client/lib/content_script.js',
+    './client/popup/popup_bundle': './client/popup/popup.js'
   },
   output: {
     path: path.join(__dirname, ''),

@@ -4,21 +4,30 @@
 		<title>
 			弹走鱼尾纹
 		</title>
-		<link rel="stylesheet" type="text/css" href="popup.css" />
+		<link rel="stylesheet" type="text/css" href="popup_bundle_style.css" />
 	</head>
 <body>
-<p id="message">
-	<button id="enginStart">运行云插件</button>
-	<button id="viewH5page">查看当前页面的H5版本</button>
-</p>
-<div id="content">
-	<!-- plugin.labs.taobao.net below : -->
-	<!-- <iframe src="http://plugin.labs.taobao.net/" frameborder="0"></iframe> -->
-</div>
-
-<div id="h5page">
-	<!-- <iframe id="J_Frame" frameborder="0" src="http://mp.m.taobao.net/?single=true#url=https://www.taobao.com/markets/hi/hongxing1_copy&amp;device=sketch&amp;env=taobao"></iframe> -->
-</div>
+	<header id="domain">
+		<ul style="background: -webkit-image-set(url(../img/plugin_128px.png) 1x, url(../img/plugin_128px.png) 2x) no-repeat 0 5px / 16px 16px;">
+			<li><a id="url" target="_blank" href="http://plugin.labs.taobao.net" title="查询云插件信息">插件平台主页</a></li>
+		</ul>
+	</header>
+	<div id="message">
+		<ul class="children" style="display: block;">
+		  <li id="enginStart" class="">解析当前TMS页面</li>
+		  <li id="viewH5page" class="">查看页面的H5版本</li>
+		  <li id="page_app_change" class="">
+				<label for="page_view_setting_change"><input type="checkbox" id="page_view_setting_change" name="page_view_setting_change">关闭预览H5页面功能</label>
+			</li>
+		</ul>
+	</div>
+	<div id="content">
+		<!-- plugin.labs.taobao.net below : -->
+		<!-- <iframe src="http://plugin.labs.taobao.net/" frameborder="0"></iframe> -->
+	</div>
+	<div id="h5page">
+		<!-- <iframe id="J_Frame" frameborder="0" src="http://mp.m.taobao.net/?single=true#url=https://www.taobao.com/markets/hi/hongxing1_copy&amp;device=sketch&amp;env=taobao"></iframe> -->
+	</div>
 </body>
-<script src="popup.js"></script>
+<script src="popup_bundle.js"></script>
 </html>

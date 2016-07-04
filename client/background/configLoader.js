@@ -21,8 +21,8 @@ module.exports = {
       } else {
         pluginJsonFile = ret.configs;
       }
-      // pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
-      // pluginJsonFile = pluginJsonFile.configs;
+      pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
+      pluginJsonFile = pluginJsonFile.configs;
     }).fail(function(jqXHR, textStatus, errorThrown) {
       console.log('getPluginAssetsConifg failed');
       console.log(jqXHR);

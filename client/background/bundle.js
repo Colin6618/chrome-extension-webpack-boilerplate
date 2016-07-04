@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -46,7 +46,7 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	// var mockAssertUrl = require('./mockConfig.json');
 	// http://plugin.labs.taobao.net/api/get-plugins-config
@@ -71,8 +71,8 @@
 	      } else {
 	        pluginJsonFile = ret.configs;
 	      }
-	      // pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
-	      // pluginJsonFile = pluginJsonFile.configs;
+	      pluginJsonFile = { "success": true, "configs": { "name": "get-plugins-config", "version": "1.0.0", "background": { "scripts": ["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"] }, "content_scripts": [{ "matches": ["*://*.taobao.com/*"], "js": ["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"] }], "message": "~愈之~启用的插件配置信息获取成功" } };
+	      pluginJsonFile = pluginJsonFile.configs;
 	    }).fail(function (jqXHR, textStatus, errorThrown) {
 	      console.log('getPluginAssetsConifg failed');
 	      console.log(jqXHR);
@@ -155,7 +155,9 @@
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -176,23 +178,6 @@
 	var whiteHosts = __webpack_require__(4);
 	// var configLoader_ = require('./printPublicGists.js');
 	// var mockAssertUrl = configLoader.getPluginAssets();
-
-	// var pluginJsonFile = {};
-	// getPluginAssets.done(function(ret){
-	//   pluginJsonFile = ret;
-	// }).fail(function(jqXHR, textStatus, errorThrown){
-	//   console.log('获取插件配置文件失败')
-	// });
-
-	// var domain = configLoader.getOptionDomain();
-	// for (var i = 0; i < backgroundScripts.length; i++) {
-	//   document.write('<script src="' + backgroundScripts[i] + '" ></script>');
-	// }
-
-	// const getUrl1 = "http://127.0.0.1:8000/platform/background/background0.js";
-	// const getUrl2 = "http://127.0.0.1:8000/platform/background/background00.js";
-	// document.write('<script src="' + getUrl1 + '" ></script>');
-	// document.write('<script src="' + getUrl2 + '" ></script>');
 
 	// get the url domain
 	function getDomainFromUrl(url) {
@@ -222,10 +207,35 @@
 	  }
 	};
 
+	function isH5Page(activeInfo) {
+	  // debugger;
+	  var tabId = activeInfo.id;
+	  chrome.tabs.get(tabId, function (tab) {
+	    var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
+	    if (/\.m\.taobao\./.test(hostToChecked)) {
+	      // tabObjArray[0].id check
+	      // if(tabObjArray[0].id != activeInfo.tabId ) return false;
+
+	      setTimeout(function () {
+	        chrome.tabs.sendMessage(tabId, {
+	          type: "plugin:viewH5",
+	          msg: "view H5 page in current tab",
+	          context: "view H5 page in current tab"
+	        });
+	        chrome.tabs.insertCSS(tabId, {
+	          file: '/lib/content_script_bundle_style.css',
+	          allFrames: false
+	        });
+	      }, 1000);
+	    }
+	  });
+	}
+
 	// watch the tab changed
 	// get ride of most runtime errors, the enviroment is important for the plugins
 	// check the whitelist
 	chrome.tabs.onUpdated.addListener(checkForValidUrl);
+	chrome.tabs.onCreated.addListener(isH5Page);
 
 	// click page action icon event
 	// it runs after the check 🐳

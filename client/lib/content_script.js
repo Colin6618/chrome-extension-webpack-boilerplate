@@ -8,18 +8,30 @@
 // 使用所属扩展程序页面中定义的变量或函数
 // 使用网页或其他内容脚本中定义的变量或函数
 
-// require just for loader to compile, the styel injected in popupjs via chrome api
-require('./viewH5/content_style.less');
-var Xtemplate = require('xtemplate/lib/runtime');
-var tpl = require('./viewH5/tpl.xtpl');
-var viewH5Main = require('./viewH5/index.js');
-
+// onMessage提前，防止background的sendMessage丢失
+chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
+	if(request.type=="plugin:viewH5") {
+    viewH5();
+	}
+});
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
 	if(request.type=="plugin:error") {
     console.log(request.msg);
     console.log(request.context);
 	}
 });
+
+
+
+// require just for loader to compile, the styel injected in popupjs via chrome api
+require('./viewH5/content_style.less');
+var Xtemplate = require('xtemplate/lib/runtime');
+var tpl = require('./viewH5/tpl.xtpl');
+var viewH5Main = require('./viewH5/index.js');
+// var global = {}
+
+
+// 启用H5页面预览
 var viewH5 = function() {
 	var newDoc = document.open("text/html", "replace");
 	var currentUrl = location.href;
@@ -29,6 +41,7 @@ var viewH5 = function() {
 	else {
 		currentUrl += '?wh_ttid=phone'
 	}
+	//重新渲染页面
 	newDoc.write(new Xtemplate(tpl).render({
 		currentUrl: currentUrl
 	}));
@@ -38,9 +51,3 @@ var viewH5 = function() {
 	// $('html').html(new Xtemplate(tpl).render({}));// jquery bug , body tag lost
 	// $('body').append('<div class="demo" ><iframe id="J_Frame" frameborder="0" src="https://www.taobao.com/markets/hi/hongxing1_copy"></iframe></div>');
 }
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
-	if(request.type=="plugin:viewH5") {
-    viewH5();
-	}
-});
