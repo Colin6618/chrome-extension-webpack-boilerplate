@@ -1,12 +1,11 @@
 {
 	"manifest_version": 2,
-	"name": "plugin-platform-client",
-	"version": "3.2.1",
+	"name": "Light Plugin",
+	"version": "3.2.2",
 	"background": {
         "page": "background/background.html",
         "persistent": false
   },
-	"permissions": ["tabs"],
 	"page_action": {
 		"default_icon": {
 			"19": "img/plugin_128px.png",
@@ -15,7 +14,7 @@
 		"default_title": "plugin-platform-client",
 		"default_popup": "popup/popup.html"
 	},
-	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>" ],
+	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>"],
 	"options_page": "options/options.html",
 	"content_scripts":[{
 		"matches":["*://*/*"],

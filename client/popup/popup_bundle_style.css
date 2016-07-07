@@ -45,6 +45,9 @@ a {
 #message .children li:hover {
   background-color: #eee;
 }
+#message .children li#page_app_change {
+  padding: 6px 10px 6px 20px;
+}
 /*#h5page {
 	width: 374px;
 	height: 788px;

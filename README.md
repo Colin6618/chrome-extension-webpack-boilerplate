@@ -1,6 +1,8 @@
 > 这是插件平台客户端，Changelog见client文件夹内 Readme
-
 > 官方主页： http://plugin.labs.taobao.net/
+
+### 3.2.2 07/04
+- 无线页面检测规则变更为`.m.taobao. 或 .wapa.taobao.`
 
 
 ### 3.2.1 07/04

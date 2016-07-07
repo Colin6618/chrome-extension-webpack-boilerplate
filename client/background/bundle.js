@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -46,7 +46,7 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	// var mockAssertUrl = require('./mockConfig.json');
 	// http://plugin.labs.taobao.net/api/get-plugins-config
@@ -71,8 +71,8 @@
 	      } else {
 	        pluginJsonFile = ret.configs;
 	      }
-	      pluginJsonFile = { "success": true, "configs": { "name": "get-plugins-config", "version": "1.0.0", "background": { "scripts": ["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"] }, "content_scripts": [{ "matches": ["*://*.taobao.com/*"], "js": ["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"] }], "message": "~愈之~启用的插件配置信息获取成功" } };
-	      pluginJsonFile = pluginJsonFile.configs;
+	      // pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
+	      // pluginJsonFile = pluginJsonFile.configs;
 	    }).fail(function (jqXHR, textStatus, errorThrown) {
 	      console.log('getPluginAssetsConifg failed');
 	      console.log(jqXHR);
@@ -156,8 +156,7 @@
 /* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */,
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -174,10 +173,12 @@
 	// get sources url from server
 	// import 'babel-polyfill';
 	var configLoader = __webpack_require__(2);
-	var util = __webpack_require__(3);
 	var whiteHosts = __webpack_require__(4);
+	var util = __webpack_require__(3);
+
 	// var configLoader_ = require('./printPublicGists.js');
 	// var mockAssertUrl = configLoader.getPluginAssets();
+	// import xctrlCheck from './mod/xctrlCheck.js';
 
 	// get the url domain
 	function getDomainFromUrl(url) {
@@ -208,11 +209,11 @@
 	};
 
 	function isH5Page(activeInfo) {
-	  // debugger;
+	  if (localStorage["plugin-platform-setting-viewH5-disabled"] === 'true') return false;
 	  var tabId = activeInfo.id;
 	  chrome.tabs.get(tabId, function (tab) {
 	    var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
-	    if (/\.m\.taobao\./.test(hostToChecked)) {
+	    if (/\.m\.taobao\./.test(hostToChecked) || /\.wapa\.taobao\./.test(hostToChecked)) {
 	      // tabObjArray[0].id check
 	      // if(tabObjArray[0].id != activeInfo.tabId ) return false;
 
@@ -324,6 +325,7 @@
 	  }
 	};
 
+	// xctrlCheck();
 	// chrome.pageAction.onClicked.addListener(main);
 
 /***/ }

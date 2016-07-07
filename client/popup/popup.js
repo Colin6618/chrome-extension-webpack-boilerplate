@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
         active: true
       },
       function(tabObjArray) {
-				if(tabObjArray.length < 1) {
-					alert('getTabIndex faild, please refresh the page and try again ');
-					return;
-				}
+        if (tabObjArray.length < 1) {
+          alert('getTabIndex faild, please refresh the page and try again ');
+          return;
+        }
         main(tabObjArray[0].id);
       }
     );
@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('viewH5page').addEventListener('click', signalVewH5);
   // return;
   // var data = chrome.extension.getBackgroundPage().articleData;
+
+  document.getElementById('page_view_setting_change').checked = localStorage["plugin-platform-setting-viewH5-disabled"] === "true" ? true : false;
+  document.getElementById('page_view_setting_change').onclick = function(ev) {
+    var $this = ev.target;
+    localStorage["plugin-platform-setting-viewH5-disabled"] = $this.checked;
+  }
 });
 
 // 点击viewH5发出的事件
@@ -32,10 +38,10 @@ function signalVewH5() {
       active: true
     },
     function(tabObjArray) {
-			if(tabObjArray.length < 1) {
-				alert('GetTabIndex faild, please refresh the page and try again ');
-				return;
-			}
+      if (tabObjArray.length < 1) {
+        alert('GetTabIndex faild, please refresh the page and try again ');
+        return;
+      }
       // tabObjArray[0].id
       chrome.tabs.sendMessage(tabObjArray[0].id, {
         type: "plugin:viewH5",

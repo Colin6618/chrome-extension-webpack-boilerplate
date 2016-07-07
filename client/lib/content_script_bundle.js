@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -49,7 +49,7 @@
 	// http://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 	// http://wonko.com/post/html-escaping
 
-	var escapeHtml = __webpack_require__(18);
+	var escapeHtml = __webpack_require__(16);
 
 	var SUBSTITUTE_REG = /\\?\{([^{}]+)\}/g;
 	var win = typeof global !== 'undefined' ? global : window;
@@ -344,7 +344,7 @@
 
 	'use strict';
 
-	var QRCoder = __webpack_require__(13);
+	var QRCoder = __webpack_require__(12);
 
 	function generateQR() {
 	  var qr_coder = new QRCoder($('#qr_container'));
@@ -413,10 +413,10 @@
 	'use strict';
 
 	var util = __webpack_require__(0);
-	var nativeCommands = __webpack_require__(16);
+	var nativeCommands = __webpack_require__(14);
 	var commands = {};
 	var Scope = __webpack_require__(1);
-	var LinkedBuffer = __webpack_require__(17);
+	var LinkedBuffer = __webpack_require__(15);
 
 	// for performance: reduce hidden class
 	function TplWrap(name, runtime, root, scope, buffer, originalName, fn, parent) {
@@ -907,8 +907,7 @@
 
 /***/ },
 /* 10 */,
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -964,7 +963,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2544,9 +2543,8 @@
 	module.exports = QRCoder;
 
 /***/ },
-/* 14 */,
-/* 15 */,
-/* 16 */
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2828,7 +2826,7 @@
 	module.exports = commands;
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2988,7 +2986,7 @@
 	 */
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/*!

@@ -10,10 +10,13 @@
 // get sources url from server
 // import 'babel-polyfill';
 var configLoader = require('./configLoader.js');
-var util = require('./util/util.js');
 var whiteHosts = require('./util/whitelist.js');
+var util = require('./util/util.js');
+
 // var configLoader_ = require('./printPublicGists.js');
 // var mockAssertUrl = configLoader.getPluginAssets();
+// import xctrlCheck from './mod/xctrlCheck.js';
+
 
 // get the url domain
 function getDomainFromUrl(url) {
@@ -46,11 +49,11 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 };
 
 function isH5Page(activeInfo) {
-  // debugger;
+  if(localStorage["plugin-platform-setting-viewH5-disabled"]==='true') return false;
   let tabId = activeInfo.id;
   chrome.tabs.get(tabId, function(tab){
     let hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
-    if(/\.m\.taobao\./.test(hostToChecked)) {
+    if(/\.m\.taobao\./.test(hostToChecked) || /\.wapa\.taobao\./.test(hostToChecked)) {
           // tabObjArray[0].id check
           // if(tabObjArray[0].id != activeInfo.tabId ) return false;
 
@@ -74,6 +77,7 @@ function isH5Page(activeInfo) {
 // check the whitelist
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 chrome.tabs.onCreated.addListener(isH5Page);
+
 
 
 // click page action icon event
@@ -164,4 +168,5 @@ var main = window.main = function(tab) {
   }
 }
 
+// xctrlCheck();
 // chrome.pageAction.onClicked.addListener(main);

@@ -37,12 +37,12 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 14:
+/***/ 13:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70,6 +70,12 @@
 	  document.getElementById('viewH5page').addEventListener('click', signalVewH5);
 	  // return;
 	  // var data = chrome.extension.getBackgroundPage().articleData;
+
+	  document.getElementById('page_view_setting_change').checked = localStorage["plugin-platform-setting-viewH5-disabled"] === "true" ? true : false;
+	  document.getElementById('page_view_setting_change').onclick = function (ev) {
+	    var $this = ev.target;
+	    localStorage["plugin-platform-setting-viewH5-disabled"] = $this.checked;
+	  };
 	});
 
 	// 点击viewH5发出的事件
