@@ -184,9 +184,9 @@
 	function getDomainFromUrl(url) {
 	  var host = "null";
 	  if (typeof url == "undefined" || null == url) url = window.location.href;
-	  var regex = /.*\:\/\/([^\/]*).*/;
+	  var regex = /^(http|https):\/\/([^\/]*).*/;
 	  var match = url.match(regex);
-	  if (typeof match != "undefined" && null != match) host = match[1];
+	  if (typeof match != "undefined" && null != match) host = match[2];
 	  return host;
 	}
 

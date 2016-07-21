@@ -1,6 +1,9 @@
 > 这是插件平台客户端，Changelog见client文件夹内 Readme
 > 官方主页： http://plugin.labs.taobao.net/
 
+### 3.2.4 07/21
+- 增强域名提取正则，现在可以正确提取http://pageview.labs.taobao.net/page?url=http://market.m.taobao.com/apps/wanke/wanke/index 里的域名了
+
 ### 3.2.2 07/04
 - 无线页面检测规则变更为`.m.taobao. 或 .wapa.taobao.`
 
