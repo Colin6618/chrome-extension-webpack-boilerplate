@@ -56,7 +56,6 @@ function isH5Page(activeInfo) {
     if(/\.m\.taobao\./.test(hostToChecked) || /\.wapa\.taobao\./.test(hostToChecked)) {
           // tabObjArray[0].id check
           // if(tabObjArray[0].id != activeInfo.tabId ) return false;
-
         setTimeout(function() {
           chrome.tabs.sendMessage(tabId, {
             type: "plugin:viewH5",

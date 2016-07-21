@@ -31,7 +31,7 @@
     <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(.8, .8);">
       <div id="J_Navbar" class="nav-bar taobao">
             <a href="javascript:window.history.back();" id="J_Back" class="back" title="返回">返回</a>
-            <span id="J_Title" class="frame-title">插件平台H5预览</span>
+            <span id="J_Title" class="frame-title">运营助手H5预览</span>
             <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush" title="刷新">刷新</a>
         </div>
       <div class="demo">
