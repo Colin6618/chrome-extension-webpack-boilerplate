@@ -83,8 +83,8 @@
 	    var domain = this.getEnv();
 	    var configlUrl = {
 	      local: 'http://127.0.0.1:3290/plugin.json',
-	      prepub: 'http://plugin.labs.taobao.net:6001/api/getPluginsConfig',
-	      online: 'http://plugin.labs.taobao.net/api/getPluginsConfig'
+	      prepub: 'https://plugin.labs.taobao.net:6001/api/getPluginsConfig',
+	      online: 'https://plugin.labs.taobao.net/api/getPluginsConfig'
 	    };
 	    switch (domain) {
 	      case 'local':
