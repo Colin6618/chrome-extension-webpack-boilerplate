@@ -30,9 +30,6 @@ var configLoader = require('./configLoader.js');
 // document.write('<script src="' + getUrl1 + '" ></script>');
 // document.write('<script src="' + getUrl2 + '" ></script>');
 
-
-
-
 // get the url domain
 function getDomainFromUrl(url) {
   var host = "null";
@@ -200,6 +197,5 @@ chrome.pageAction.onClicked.addListener(function(tab) {
     }).fail(function(info) {
       console.log(info);
     });
-
   }
 });
