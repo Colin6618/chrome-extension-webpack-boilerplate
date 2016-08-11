@@ -770,7 +770,7 @@ sysMain = function (exports) {
           return;
         }
         if (tab.url.indexOf('http://apluspre.alibaba-inc.com/aplus/pub/appPage.htm') > -1) {
-          debugger;
+
         }
         var tabId = tab.tabId, all = Config.isAplus(tab.url);
         if (tab.frameId !== 0 && !all) {

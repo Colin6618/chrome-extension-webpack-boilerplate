@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <div id="wrap">
+  <div id="oper_wrap">
     <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(.8, .8);">
       <div id="J_Navbar" class="nav-bar taobao">
             <a href="javascript:window.history.back();" id="J_Back" class="back" title="返回">返回</a>

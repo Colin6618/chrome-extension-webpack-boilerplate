@@ -11,9 +11,18 @@
 // onMessage提前，防止background的sendMessage丢失
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
 	if(request.type=="plugin:viewH5") {
-    viewH5();
+		if(document.title !== 'viewH5page') {
+			viewH5();
+		}
 	}
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
+	if(request.type=="plugin:refreshCurrentTab") {
+		location.reload();
+	}
+});
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
 	if(request.type=="plugin:error") {
     console.log(request.msg);
@@ -33,6 +42,7 @@ var viewH5Main = require('./viewH5/index.js');
 
 // 启用H5页面预览
 var viewH5 = function() {
+
 	// 替换document
 	var newDoc = document.open("text/html", "replace");
 	var currentUrl = location.href;

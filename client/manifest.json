@@ -12,8 +12,7 @@
 			"19": "img/plugin_128px.png",
 			"128": "img/plugin_128px.png"
 		},
-		"default_title": "运营助手oper",
-		"default_popup": "popup/popup.html"
+		"default_title": "运营助手oper"
 	},
 	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>"],
 	"options_page": "options/options.html",

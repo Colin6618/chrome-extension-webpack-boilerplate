@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -49,7 +49,7 @@
 	// http://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 	// http://wonko.com/post/html-escaping
 
-	var escapeHtml = __webpack_require__(16);
+	var escapeHtml = __webpack_require__(18);
 
 	var SUBSTITUTE_REG = /\\?\{([^{}]+)\}/g;
 	var win = typeof global !== 'undefined' ? global : window;
@@ -339,12 +339,14 @@
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var QRCoder = __webpack_require__(12);
+	var QRCoder = __webpack_require__(14);
 
 	function generateQR() {
 	  var qr_coder = new QRCoder($('#qr_container'));
@@ -396,14 +398,14 @@
 	module.exports = main;
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 7 */,
-/* 8 */
+/* 9 */,
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -413,10 +415,10 @@
 	'use strict';
 
 	var util = __webpack_require__(0);
-	var nativeCommands = __webpack_require__(14);
+	var nativeCommands = __webpack_require__(16);
 	var commands = {};
 	var Scope = __webpack_require__(1);
-	var LinkedBuffer = __webpack_require__(15);
+	var LinkedBuffer = __webpack_require__(17);
 
 	// for performance: reduce hidden class
 	function TplWrap(name, runtime, root, scope, buffer, originalName, fn, parent) {
@@ -851,7 +853,7 @@
 	 */
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = function (undefined){
@@ -897,7 +899,7 @@
 	var debuggerCommand = nativeCommands["debugger"];
 
 
-	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n    /** {\n      cursor: url(\'//img.alicdn.com/tps/i2/T1_PMSFLBaXXcu5FDa-20-20.png\'), pointer !important;\n    }*/\n    /*@font-face {\n      font-family: \'_Helvetica\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/_H_Helvetica.ttc\') format(\'truetype\');\n    }\n\n    @font-face {\n      font-family: \'_STHeiti-Light\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/STHeiti-Light.ttc\') format(\'truetype\');\n    }*/\n/*\n    html,\n    body {\n      font-family: Helvetica, \'STHeiti Light\', STXihei, _Helvetica, _STHeiti-Light !important;\n    }*/\n  </style>\n</head>\n\n<body>\n  <div id="wrap">\n    <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(.8, .8);">\n      <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back" title="返回">返回</a>\n            <span id="J_Title" class="frame-title">运营助手H5预览</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush" title="刷新">刷新</a>\n        </div>\n      <div class="demo">\n        <iframe src="';
+	buffer.data += '<!DOCTYPE html>\n\n<html lang="en">\n\n<head>\n  <meta charset="UTF-8">\n  <title>viewH5page</title>\n  <style>\n    /** {\n      cursor: url(\'//img.alicdn.com/tps/i2/T1_PMSFLBaXXcu5FDa-20-20.png\'), pointer !important;\n    }*/\n    /*@font-face {\n      font-family: \'_Helvetica\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/_H_Helvetica.ttc\') format(\'truetype\');\n    }\n\n    @font-face {\n      font-family: \'_STHeiti-Light\';\n      src: url(\'http://groups.demo.taobao.net/kimi/preview/src/font/STHeiti-Light.ttc\') format(\'truetype\');\n    }*/\n/*\n    html,\n    body {\n      font-family: Helvetica, \'STHeiti Light\', STXihei, _Helvetica, _STHeiti-Light !important;\n    }*/\n  </style>\n</head>\n\n<body>\n  <div id="oper_wrap">\n    <div id="J_DemoWrap" class="demo-wrap iphone6" style="transform: scale(.8, .8);">\n      <div id="J_Navbar" class="nav-bar taobao">\n            <a href="javascript:window.history.back();" id="J_Back" class="back" title="返回">返回</a>\n            <span id="J_Title" class="frame-title">运营助手H5预览</span>\n            <a href="javascript:document.all.J_Frame.contentDocument.location.reload();" id="J_reflush" class="reflush" title="刷新">刷新</a>\n        </div>\n      <div class="demo">\n        <iframe src="';
 	pos.line = 38;
 	var id0 = ((t=(affix.currentUrl)) !== undefined ? t : ((t = data.currentUrl) !== undefined ? t  : scope.resolveLooseUp(["currentUrl"])));
 	buffer = buffer.writeEscaped(id0);
@@ -906,8 +908,8 @@
 	}
 
 /***/ },
-/* 10 */,
-/* 11 */
+/* 12 */,
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -925,9 +927,18 @@
 	// onMessage提前，防止background的sendMessage丢失
 	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
 		if (request.type == "plugin:viewH5") {
-			viewH5();
+			if (document.title !== 'viewH5page') {
+				viewH5();
+			}
 		}
 	});
+
+	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
+		if (request.type == "plugin:refreshCurrentTab") {
+			location.reload();
+		}
+	});
+
 	chrome.runtime.onMessage.addListener(function (request, sender, sendRequest) {
 		if (request.type == "plugin:error") {
 			console.log(request.msg);
@@ -936,14 +947,15 @@
 	});
 
 	// require just for loader to compile, the styel injected in popupjs via chrome api
-	__webpack_require__(6);
-	var Xtemplate = __webpack_require__(8);
-	var tpl = __webpack_require__(9);
-	var viewH5Main = __webpack_require__(5);
+	__webpack_require__(8);
+	var Xtemplate = __webpack_require__(10);
+	var tpl = __webpack_require__(11);
+	var viewH5Main = __webpack_require__(7);
 	// var global = {}
 
 	// 启用H5页面预览
 	var viewH5 = function viewH5() {
+
 		// 替换document
 		var newDoc = document.open("text/html", "replace");
 		var currentUrl = location.href;
@@ -964,7 +976,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2544,8 +2556,8 @@
 	module.exports = QRCoder;
 
 /***/ },
-/* 13 */,
-/* 14 */
+/* 15 */,
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2827,7 +2839,7 @@
 	module.exports = commands;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2987,7 +2999,7 @@
 	 */
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/*!

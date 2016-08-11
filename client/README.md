@@ -68,3 +68,5 @@ https://developer.chrome.com/extensions/extension
 http://www.php100.com/manual/jquery/jQuery.getScript.html
 
 "permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>" ],
+
+"default_popup": "popup/popup.html"

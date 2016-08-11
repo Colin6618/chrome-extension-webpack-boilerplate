@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -125,6 +125,73 @@
 
 	'use strict';
 
+	module.exports = function loginSSOToken() {
+	  chrome.notifications.create('loginTip', {
+	    type: 'basic',
+	    iconUrl: '../img/plugin_128px.png',
+	    title: "助手提示",
+	    message: "",
+	    contextMessage: "您还未登录",
+	    buttons: [{ title: "登录" }],
+	    requireInteraction: true
+	  }, function () {});
+	  chrome.notifications.onButtonClicked.addListener(function (id, n2) {
+	    if (id === 'loginTip') {
+	      var createProperties = {
+	        url: 'http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/',
+	        active: true
+	      };
+	      chrome.tabs.create(createProperties, function () {});
+	      setTimeout(function () {
+	        chrome.notifications.clear(id, function () {});
+	      }, 300);
+	    }
+	  });
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = throttle;
+
+	/**
+	 * Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
+	 *
+	 * @param {Function} func Function to wrap.
+	 * @param {Number} wait Number of milliseconds that must elapse between `func` invocations.
+	 * @return {Function} A new function that wraps the `func` function passed in.
+	 */
+
+	function throttle(func, wait) {
+	  var ctx, args, rtn, timeoutID; // caching
+	  var last = 0;
+
+	  return function throttled() {
+	    ctx = this;
+	    args = arguments;
+	    var delta = new Date() - last;
+	    if (!timeoutID) if (delta >= wait) call();else timeoutID = setTimeout(call, wait - delta);
+	    return rtn;
+	  };
+
+	  function call() {
+	    timeoutID = 0;
+	    last = +new Date();
+	    rtn = func.apply(ctx, args);
+	    ctx = null;
+	    args = null;
+	  }
+	}
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
 	var format = function format(url) {
 	  if (/http(s)?\:/.test(url)) return url;else return 'http:' + url;
 	};
@@ -134,7 +201,7 @@
 	};
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -154,12 +221,12 @@
 	module.exports = whiteHosts;
 
 /***/ },
-/* 5 */,
-/* 6 */,
 /* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */,
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -175,8 +242,26 @@
 
 	// get sources url from server
 	var configLoader = __webpack_require__(2);
-	var whiteHosts = __webpack_require__(4);
-	var util = __webpack_require__(3);
+	var whiteHosts = __webpack_require__(6);
+	var util = __webpack_require__(5);
+	var callBuffer = __webpack_require__(4);
+	var loginSSOToken = __webpack_require__(3);
+
+	var globalConfig = {
+	  switch: true
+	};
+
+	(function checkLogin() {
+	  var pluginJsonFile = configLoader.getPluginAssets();
+	  console.log('get config');
+	  // var pluginJsonFile_ = configLoader_.getPluginAssets_();
+	  if (!pluginJsonFile) {
+	    console.log('pluginConfig file is empty!');
+	  }
+	  if (pluginJsonFile.login === false) {
+	    loginSSOToken();
+	  }
+	})();
 
 	// get the url domain
 	function getDomainFromUrl(url) {
@@ -190,12 +275,12 @@
 
 	// var currentTabId = 0;
 	// var currentWindowId = 0;
-
 	//check the url string
 	// if in the white list -> active the page Action
 	function checkForValidUrl(tabId, changeInfo, tab) {
 	  // chrome.browserAction.disable(tabId);
 	  if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1) return;
+	  if (!globalConfig.switch) return false;
 	  var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
 	  var i = 0;
 	  for (; i < whiteHosts.length; i++) {
@@ -204,29 +289,44 @@
 	    if (new RegExp(hostRegExp).test(hostToChecked)) {
 	      // chrome.pageAction.show(tabId);
 	      // chrome.browserAction.enable(tabId);
+	      setTimeout(function () {
+	        return main(tabId);
+	      }, 1000);
 	      break;
 	    }
 	  }
 	};
 
 	function isH5Page(activeInfo) {
-	  if (localStorage["plugin-platform-setting-viewH5-disabled"] === 'true') return false;
-	  var tabId = activeInfo.id;
+	  if (!globalConfig.switch) return false;
+	  var tabId = activeInfo;
 	  chrome.tabs.get(tabId, function (tab) {
 	    var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
 	    if (/\.m\.taobao\./.test(hostToChecked) || /\.wapa\.taobao\./.test(hostToChecked)) {
 	      // tabObjArray[0].id check
 	      // if(tabObjArray[0].id != activeInfo.tabId ) return false;
+	      //通知content_script修改页面
+	      console.log('call view H5');
 	      setTimeout(function () {
-	        chrome.tabs.sendMessage(tabId, {
-	          type: "plugin:viewH5",
-	          msg: "view H5 page in current tab",
-	          context: "view H5 page in current tab"
-	        });
-	        chrome.tabs.insertCSS(tabId, {
-	          file: '/lib/content_script_bundle_style.css',
-	          allFrames: false
-	        });
+	        try {
+	          chrome.tabs.sendMessage(tabId, {
+	            type: "plugin:viewH5",
+	            msg: "view H5 page in current tab",
+	            context: "view H5 page in current tab"
+	          });
+	          chrome.tabs.insertCSS(tabId, {
+	            file: '/lib/content_script_bundle_style.css',
+	            allFrames: false
+	          });
+	        } catch (err) {
+	          console.log(err);
+	          chrome.tabs.sendMessage(tabId, {
+	            type: "plugin:error",
+	            msg: "viewH5 Function ERROR",
+	            context: err
+	          });
+	          return;
+	        }
 	      }, 1000);
 	    }
 	  });
@@ -235,38 +335,43 @@
 	// watch the tab changed
 	// get ride of most runtime errors, the enviroment is important for the plugins
 	// check the whitelist
-	chrome.tabs.onUpdated.addListener(checkForValidUrl);
-	chrome.tabs.onCreated.addListener(isH5Page);
+	chrome.tabs.onUpdated.addListener(callBuffer(checkForValidUrl, 300));
+	chrome.tabs.onUpdated.addListener(callBuffer(isH5Page, 300));
+
+	// browsertab切换
+	chrome.browserAction.onClicked.addListener(function (tab) {
+	  // close => open
+	  if (!globalConfig.switch) {
+	    chrome.browserAction.setIcon({
+	      path: {
+	        "128": "../img/plugin_128px.png"
+	      }
+	    }, function () {
+	      globalConfig.switch = true;
+	      chrome.tabs.sendMessage(tab.id, {
+	        type: "plugin:refreshCurrentTab",
+	        msg: "refresh Current Tab",
+	        context: "refresh Current Tab"
+	      });
+	    });
+	  } else {
+	    chrome.browserAction.setIcon({
+	      path: {
+	        "128": "../img/plugin_128px_c.png"
+	      }
+	    }, function () {
+	      globalConfig.switch = false;
+	    });
+	  }
+	});
 
 	// click page action icon event
 	// it runs after the check 🐳
 	// http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/
-	function loginSSOToken() {
-	  chrome.notifications.create('loginTip', {
-	    type: 'basic',
-	    iconUrl: '../img/plugin_128px.png',
-	    title: "提示",
-	    message: "",
-	    contextMessage: "您还未登录域帐号",
-	    buttons: [{ title: "登录" }],
-	    requireInteraction: true
-	  }, function () {});
-	  chrome.notifications.onButtonClicked.addListener(function (id, n2) {
-	    if (id === 'loginTip') {
-	      var createProperties = {
-	        url: 'http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/',
-	        active: true
-	      };
-	      chrome.tabs.create(createProperties, function () {});
-	      setTimeout(function () {
-	        chrome.notifications.clear(id, function () {});
-	      }, 300);
-	    }
-	  });
-	}
 
 	var main = window.main = function (tab) {
 	  var pluginJsonFile = configLoader.getPluginAssets();
+	  console.log('get config');
 	  // var pluginJsonFile_ = configLoader_.getPluginAssets_();
 	  if (!pluginJsonFile) {
 	    console.log('pluginConfig file is empty!');
@@ -276,6 +381,7 @@
 	    // var backgroundScripts = pluginJsonFile.background.scripts;
 	    if (pluginJsonFile.login === false) {
 	      loginSSOToken();
+	      return;
 	    } else {
 	      var contentScripts = pluginJsonFile.content_scripts;
 	    }

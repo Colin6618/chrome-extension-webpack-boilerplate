@@ -38,7 +38,7 @@ a {
   margin-top: 20px;
   display: none;
 }
-#wrap {
+#oper_wrap {
   text-align: center;
   position: absolute;
   top: 50%;
@@ -47,7 +47,7 @@ a {
   margin-top: -470px;
   margin-left: -467px;
 }
-#wrap #J_DemoWrap {
+#oper_wrap #J_DemoWrap {
   width: 478px;
   height: 800px;
   vertical-align: middle;
@@ -55,22 +55,22 @@ a {
   text-align: left;
   position: relative;
 }
-#wrap .info {
+#oper_wrap .info {
   padding-left: 40px;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
 }
-#wrap .webviewRuntime {
+#oper_wrap .webviewRuntime {
   display: none;
 }
-#wrap #message .children {
+#oper_wrap #message .children {
   list-style: none;
   padding: 0;
   margin: 0;
   display: block;
 }
-#wrap #message .children li {
+#oper_wrap #message .children li {
   font-weight: normal;
   font-size: 13px;
   display: block;
