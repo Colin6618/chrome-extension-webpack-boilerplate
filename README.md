@@ -1,6 +1,16 @@
 > 这是插件平台客户端，Changelog见client文件夹内 Readme
 > 官方主页： http://plugin.labs.taobao.net/
 
+### 4.0.0 08/12
+1. 安装插件即检测登录状态。避免运行时检测
+2. H5模拟现在监听tab的updated事件
+3. H5模拟本身会触发tab的updated，所以存在死循环，通过检测页面特征跳出
+4. TMS插件不会总是运行，只有在白名单中的页面才会运行云插件。
+5. TMS插件运行前增加了一定的延迟，对懒加载的页面来说，体验更好。
+6. 对所有chrome API调用增加了回调方法的缓冲时间，暂定为300ms, 可以很大幅度减少对plugin.labs的接口调用量。
+7. 新增了助手关闭的Icon，现在打开助手会刷新当前页面。
+8. 插件图标开关从PageActino改为浏览器层面的Action, 现在助手的开关在一个Chrome实例范围内有效。
+
 ### 3.2.4 07/21
 - 增强域名提取正则，现在可以正确提取http://pageview.labs.taobao.net/page?url=http://market.m.taobao.com/apps/wanke/wanke/index 里的域名了
 
