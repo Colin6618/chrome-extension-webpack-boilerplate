@@ -361,6 +361,11 @@
 	      }
 	    }, function () {
 	      globalConfig.switch = false;
+	      chrome.tabs.sendMessage(tab.id, {
+	        type: "plugin:refreshCurrentTab",
+	        msg: "refresh Current Tab",
+	        context: "refresh Current Tab"
+	      });
 	    });
 	  }
 	});
