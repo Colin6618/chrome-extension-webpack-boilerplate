@@ -18,8 +18,11 @@ module.exports = {
     jqXHR.done(function(ret, textStatus, jqXHR) {
       if (env === 'local') {
         pluginJsonFile = ret;
+      } else if(ret.success === false && ret.status === -1) {
+        pluginJsonFile.login = false;
       } else {
         pluginJsonFile = ret.configs;
+        pluginJsonFile.login = true;
       }
       // pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
       // pluginJsonFile = pluginJsonFile.configs;

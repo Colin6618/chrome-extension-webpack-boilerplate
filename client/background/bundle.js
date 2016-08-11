@@ -68,8 +68,11 @@
 	    jqXHR.done(function (ret, textStatus, jqXHR) {
 	      if (env === 'local') {
 	        pluginJsonFile = ret;
+	      } else if (ret.success === false && ret.status === -1) {
+	        pluginJsonFile.login = false;
 	      } else {
 	        pluginJsonFile = ret.configs;
+	        pluginJsonFile.login = true;
 	      }
 	      // pluginJsonFile = {"success":true,"configs":{"name":"get-plugins-config","version":"1.0.0","background":{"scripts":["//g.alicdn.com/kg/cp-tms/0.0.3/background.js"]},"content_scripts":[{"matches":["*://*.taobao.com/*"],"js":["//g.alicdn.com/kg/cp-tms/0.0.3/index.js"]}],"message":"~愈之~启用的插件配置信息获取成功"}};
 	      // pluginJsonFile = pluginJsonFile.configs;
@@ -171,14 +174,9 @@
 	// 使用网页或其他内容脚本中定义的变量或函数
 
 	// get sources url from server
-	// import 'babel-polyfill';
 	var configLoader = __webpack_require__(2);
 	var whiteHosts = __webpack_require__(4);
 	var util = __webpack_require__(3);
-
-	// var configLoader_ = require('./printPublicGists.js');
-	// var mockAssertUrl = configLoader.getPluginAssets();
-	// import xctrlCheck from './mod/xctrlCheck.js';
 
 	// get the url domain
 	function getDomainFromUrl(url) {
@@ -196,13 +194,16 @@
 	//check the url string
 	// if in the white list -> active the page Action
 	function checkForValidUrl(tabId, changeInfo, tab) {
+	  // chrome.browserAction.disable(tabId);
 	  if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1) return;
 	  var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
-	  for (var i = 0; i < whiteHosts.length; i++) {
+	  var i = 0;
+	  for (; i < whiteHosts.length; i++) {
 	    // convert a csp exp string to reg exp
 	    var hostRegExp = whiteHosts[i].replace(/\./g, '\\.').replace(/\*/g, '\.\*');
 	    if (new RegExp(hostRegExp).test(hostToChecked)) {
-	      chrome.pageAction.show(tabId);
+	      // chrome.pageAction.show(tabId);
+	      // chrome.browserAction.enable(tabId);
 	      break;
 	    }
 	  }
@@ -239,24 +240,32 @@
 
 	// click page action icon event
 	// it runs after the check 🐳
+	// http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/
+	function loginSSOToken() {
+	  chrome.notifications.create('loginTip', {
+	    type: 'basic',
+	    iconUrl: '../img/plugin_128px.png',
+	    title: "提示",
+	    message: "",
+	    contextMessage: "您还未登录域帐号",
+	    buttons: [{ title: "登录" }],
+	    requireInteraction: true
+	  }, function () {});
+	  chrome.notifications.onButtonClicked.addListener(function (id, n2) {
+	    if (id === 'loginTip') {
+	      var createProperties = {
+	        url: 'http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/',
+	        active: true
+	      };
+	      chrome.tabs.create(createProperties, function () {});
+	      setTimeout(function () {
+	        chrome.notifications.clear(id, function () {});
+	      }, 300);
+	    }
+	  });
+	}
 
 	var main = window.main = function (tab) {
-
-	  // chrome.notifications.create(
-	  //   'name-for-notification',
-	  //   {
-	  //     type: 'basic',
-	  //     iconUrl: '../img/k-ghost-view-icon.png',
-	  //     title: "This is a notification",
-	  //     message: "message",
-	  //     buttons: [{title:"goto update", iconUrl: '../img/k-ghost-view-icon.png'}]
-	  //   },
-	  //   function() {}
-	  // );
-	  // chrome.notifications.onButtonClicked.addListener(function (id, n2){
-	  //   console.log(id);
-	  // })
-
 	  var pluginJsonFile = configLoader.getPluginAssets();
 	  // var pluginJsonFile_ = configLoader_.getPluginAssets_();
 	  if (!pluginJsonFile) {
@@ -265,7 +274,11 @@
 
 	  try {
 	    // var backgroundScripts = pluginJsonFile.background.scripts;
-	    var contentScripts = pluginJsonFile.content_scripts;
+	    if (pluginJsonFile.login === false) {
+	      loginSSOToken();
+	    } else {
+	      var contentScripts = pluginJsonFile.content_scripts;
+	    }
 	  } catch (err) {
 	    console.log(err);
 	    chrome.tabs.sendMessage(tab.id, {

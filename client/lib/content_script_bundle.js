@@ -944,6 +944,7 @@
 
 	// 启用H5页面预览
 	var viewH5 = function viewH5() {
+		// 替换document
 		var newDoc = document.open("text/html", "replace");
 		var currentUrl = location.href;
 		if (/\?/.test(currentUrl)) {

@@ -1,18 +1,18 @@
 {
 	"manifest_version": 2,
 	"name": "运营助手oper",
-	"version": "3.3.0",
+	"version": "4.0.0",
 	"homepage_url": "https://plugin.labs.taobao.net/",
 	"background": {
         "page": "background/background.html",
         "persistent": false
   },
-	"page_action": {
+	"browser_action": {
 		"default_icon": {
 			"19": "img/plugin_128px.png",
 			"128": "img/plugin_128px.png"
 		},
-		"default_title": "plugin-platform-client",
+		"default_title": "运营助手oper",
 		"default_popup": "popup/popup.html"
 	},
 	"permissions" : ["tabs", "activeTab", "notifications", "https://g.alicdn.com/", "<all_urls>"],

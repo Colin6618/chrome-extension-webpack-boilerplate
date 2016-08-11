@@ -8,15 +8,9 @@
 // 使用网页或其他内容脚本中定义的变量或函数
 
 // get sources url from server
-// import 'babel-polyfill';
 var configLoader = require('./configLoader.js');
 var whiteHosts = require('./util/whitelist.js');
 var util = require('./util/util.js');
-
-// var configLoader_ = require('./printPublicGists.js');
-// var mockAssertUrl = configLoader.getPluginAssets();
-// import xctrlCheck from './mod/xctrlCheck.js';
-
 
 // get the url domain
 function getDomainFromUrl(url) {
@@ -36,13 +30,16 @@ function getDomainFromUrl(url) {
 //check the url string
 // if in the white list -> active the page Action
 function checkForValidUrl(tabId, changeInfo, tab) {
+  // chrome.browserAction.disable(tabId);
   if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1 ) return;
   let hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
-  for (var i = 0; i < whiteHosts.length; i++) {
+  let i = 0;
+  for (; i < whiteHosts.length; i++) {
     // convert a csp exp string to reg exp
     var hostRegExp = whiteHosts[i].replace(/\./g, '\\.').replace(/\*/g, '\.\*');
     if (new RegExp(hostRegExp).test(hostToChecked)) {
-      chrome.pageAction.show(tabId);
+      // chrome.pageAction.show(tabId);
+      // chrome.browserAction.enable(tabId);
       break;
     }
   }
@@ -81,24 +78,37 @@ chrome.tabs.onCreated.addListener(isH5Page);
 
 // click page action icon event
 // it runs after the check 🐳
+// http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/
+function loginSSOToken() {
+  chrome.notifications.create(
+    'loginTip',
+    {
+      type: 'basic',
+      iconUrl: '../img/plugin_128px.png',
+      title: "提示",
+      message: "",
+      contextMessage: "您还未登录域帐号",
+      buttons: [{title:"登录"}],
+      requireInteraction: true
+    },
+    function() {}
+  );
+  chrome.notifications.onButtonClicked.addListener(function (id, n2){
+    if(id === 'loginTip') {
+      let createProperties = {
+        url: 'http://labs.taobao.net/api/sso?app_name=plugin&auth_back=http://plugin.labs.taobao.net/auth&redirect_url=http://plugin.labs.taobao.net/',
+        active: true
+      };
+      chrome.tabs.create(createProperties, function (){
+      })
+      setTimeout(function(){
+        chrome.notifications.clear(id, function (){});
+      }, 300);
+    }
+  });
+}
 
 var main = window.main = function(tab) {
-
-    // chrome.notifications.create(
-    //   'name-for-notification',
-    //   {
-    //     type: 'basic',
-    //     iconUrl: '../img/k-ghost-view-icon.png',
-    //     title: "This is a notification",
-    //     message: "message",
-    //     buttons: [{title:"goto update", iconUrl: '../img/k-ghost-view-icon.png'}]
-    //   },
-    //   function() {}
-    // );
-    // chrome.notifications.onButtonClicked.addListener(function (id, n2){
-    //   console.log(id);
-    // })
-
   var pluginJsonFile = configLoader.getPluginAssets();
   // var pluginJsonFile_ = configLoader_.getPluginAssets_();
   if (!pluginJsonFile) {
@@ -107,7 +117,12 @@ var main = window.main = function(tab) {
 
   try {
     // var backgroundScripts = pluginJsonFile.background.scripts;
-    var contentScripts = pluginJsonFile.content_scripts;
+    if(pluginJsonFile.login === false) {
+      loginSSOToken();
+    }
+    else {
+      var contentScripts = pluginJsonFile.content_scripts;
+    }
   } catch (err) {
     console.log(err);
     chrome.tabs.sendMessage(tab.id, {
