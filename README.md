@@ -1,6 +1,11 @@
 > 这是插件平台客户端，Changelog见client文件夹内 Readme
 > 官方主页： http://plugin.labs.taobao.net/
 
+### 4.1.0 08/19
+1. 优化运行逻辑，新增webnavigation检测，现在对页面运行状态的检测更加准确了。
+2. 优化云插件加载逻辑，现在不会多次加载云插件脚本了。
+3. 现在插件会常驻浏览器runtime，不会因为新开tab触发event page生命周期导致开关不稳定。
+
 ### 4.0.0 08/12
 1. 安装插件即检测登录状态。避免运行时检测
 2. H5模拟现在监听tab的updated事件
