@@ -5,11 +5,12 @@ function generateQR() {
   qr_coder.setMode(1);
   qr_coder.draw(
     location.href,
-    'H',
+    'M',
     null,
     function(data) {
       $('#qrwrapper').show();
     });
+    $('#qrwrapper').show();
 }
 
 // 可以设置成功，但是还没用处，TMS页面通过
@@ -26,7 +27,7 @@ function redefineTheUA() {
         }
     }
   }
-  setUserAgent(document.querySelector('iframe').contentWindow,
+  setUserAgent(document.querySelector('#J_Frame').contentWindow,
     "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
   );
 

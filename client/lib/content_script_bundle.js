@@ -351,9 +351,10 @@
 	function generateQR() {
 	  var qr_coder = new QRCoder($('#qr_container'));
 	  qr_coder.setMode(1);
-	  qr_coder.draw(location.href, 'H', null, function (data) {
+	  qr_coder.draw(location.href, 'M', null, function (data) {
 	    $('#qrwrapper').show();
 	  });
+	  $('#qrwrapper').show();
 	}
 
 	// 可以设置成功，但是还没用处，TMS页面通过
@@ -372,7 +373,7 @@
 	      }
 	    }
 	  }
-	  setUserAgent(document.querySelector('iframe').contentWindow, "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
+	  setUserAgent(document.querySelector('#J_Frame').contentWindow, "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
 
 	  // console.log('Light Plugin: 当前设备UA, ' , 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1')
 	}

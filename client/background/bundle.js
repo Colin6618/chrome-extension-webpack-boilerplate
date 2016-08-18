@@ -273,15 +273,16 @@
 	  return host;
 	}
 
-	// var currentTabId = 0;
 	// var currentWindowId = 0;
 	//check the url string
 	// if in the white list -> active the page Action
-	function checkForValidUrl(tabId, changeInfo, tab) {
+	function checkForValidUrl(details) {
+	  var tabId = details.tabId;
 	  // chrome.browserAction.disable(tabId);
-	  if (tab.url.indexOf("chrome-devtools://") > -1 || tab.url.indexOf("chrome-extension://") > -1) return;
+	  // debugger;
+	  if (details.url.indexOf("chrome-devtools://") > -1 || details.url.indexOf("chrome-extension://") > -1) return;
 	  if (!globalConfig.switch) return false;
-	  var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
+	  var hostToChecked = getDomainFromUrl(details.url).toLowerCase();
 	  var i = 0;
 	  for (; i < whiteHosts.length; i++) {
 	    // convert a csp exp string to reg exp
@@ -291,7 +292,7 @@
 	      // chrome.browserAction.enable(tabId);
 	      setTimeout(function () {
 	        return main(tabId);
-	      }, 1000);
+	      }, 500);
 	      break;
 	    }
 	  }
@@ -299,7 +300,7 @@
 
 	function isH5Page(activeInfo) {
 	  if (!globalConfig.switch) return false;
-	  var tabId = activeInfo;
+	  var tabId = activeInfo.tabId;
 	  chrome.tabs.get(tabId, function (tab) {
 	    var hostToChecked = getDomainFromUrl(tab.url).toLowerCase();
 	    if (/\.m\.taobao\./.test(hostToChecked) || /\.wapa\.taobao\./.test(hostToChecked)) {
@@ -327,7 +328,7 @@
 	          });
 	          return;
 	        }
-	      }, 1000);
+	      }, 500);
 	    }
 	  });
 	}
@@ -335,12 +336,16 @@
 	// watch the tab changed
 	// get ride of most runtime errors, the enviroment is important for the plugins
 	// check the whitelist
-	chrome.tabs.onUpdated.addListener(callBuffer(checkForValidUrl, 300));
-	chrome.tabs.onUpdated.addListener(callBuffer(isH5Page, 300));
+	// chrome.tabs.onUpdated.addListener(callBuffer(checkForValidUrl, 300));
+	// chrome.tabs.onUpdated.addListener(callBuffer(isH5Page, 300));
+	chrome.webNavigation.onCompleted.addListener(callBuffer(checkForValidUrl, 300));
+	chrome.webNavigation.onCompleted.addListener(callBuffer(isH5Page, 300));
 
 	// browsertab切换
 	chrome.browserAction.onClicked.addListener(function (tab) {
 	  // close => open
+	  console.log(globalConfig.switch);
+	  // debugger;
 	  if (!globalConfig.switch) {
 	    chrome.browserAction.setIcon({
 	      path: {
