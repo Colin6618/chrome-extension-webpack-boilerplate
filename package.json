@@ -1,5 +1,5 @@
 {
-  "name": "plugin-platform-client",
+  "name": "chrome-extension-webpack-boilerplate",
   "version": "2.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -7,8 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --watch --progress --display-error-details"
   },
-  "author": "",
+  "author": "colin6618.github.io",
   "license": "ISC",
+  "keywords": [
+    "es6",
+    "chrome extension",
+    "boilerplate"
+  ],
   "devDependencies": {
     "babel-core": "~6.7.2",
     "babel-loader": "~6.2.4",
@@ -23,8 +28,6 @@
     "less": "~2.7.1",
     "less-loader": "~2.2.3",
     "style-loader": "~0.13.1",
-    "webpack": "~2.1.0-beta.4",
-    "xtemplate": "^4.5.0",
-    "xtpl-loader": "~0.1.0"
+    "webpack": "~2.1.0"
   }
 }

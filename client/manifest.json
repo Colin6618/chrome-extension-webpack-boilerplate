@@ -1,20 +1,20 @@
 {
 	"manifest_version": 2,
-	"name": "运营助手oper",
-	"version": "4.1.0",
-	"homepage_url": "https://plugin.labs.taobao.net/",
+	"name": "Extension one",
+	"version": "0.1.0",
+	"homepage_url": "https://colin6618.github.io",
 	"background": {
         "page": "background/background.html",
         "persistent": true
   },
 	"browser_action": {
 		"default_icon": {
-			"19": "img/plugin_128px.png",
-			"128": "img/plugin_128px.png"
+			"19": "img/icon.png",
+			"128": "img/icon.png"
 		},
-		"default_title": "运营助手oper"
+		"default_title": "Extension one"
 	},
-	"permissions" : ["tabs", "activeTab", "webNavigation", "notifications", "https://g.alicdn.com/", "<all_urls>"],
+	"permissions" : ["tabs", "activeTab", "webNavigation", "notifications", "<all_urls>"],
 	"options_page": "options/options.html",
 	"content_scripts":[{
 		"matches":["*://*/*"],
@@ -26,7 +26,7 @@
     "all_frames": false
 	}],
 	"icons": {
-    "128": "img/plugin_128px.png"
+    "128": "img/icon.png"
   },
-	"content_security_policy": "script-src 'self' https://g.alicdn.com http://127.0.0.1:* http://localhost ; object-src 'self'"
+	"content_security_policy": "script-src 'self' http://127.0.0.1:* http://localhost ; object-src 'self'"
 }
